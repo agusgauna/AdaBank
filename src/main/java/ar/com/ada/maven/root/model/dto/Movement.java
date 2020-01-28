@@ -4,15 +4,30 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Movement {
+    private Integer id;
     private Date date;
-    private double amount;
-    private char description;
+    private Double amount;
+    private String description;
+    private Account account;
+    private Movement_type movement_type;
 
-    public Movement(Date date, double amount, Date date1, char description) {
+    public Movement() { }
+
+    public Movement(Integer id, Date date, Double amount, String description, Account account, Movement_type movement_type) {
+        this.id = id;
         this.date = date;
         this.amount = amount;
-        this.date = date1;
         this.description = description;
+        this.account = account;
+        this.movement_type = movement_type;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Date getDate() {
@@ -23,40 +38,45 @@ public class Movement {
         this.date = date;
     }
 
-    public char getDescription() {
-        return description;
-    }
-
-    public void setDescription(char description) {
-        this.description = description;
-    }
-
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Movement that = (Movement) o;
-        return Double.compare(that.amount, amount) == 0 &&
-                description == that.description &&
-                Objects.equals(date, that.date) &&
-                Objects.equals(date, that.date);
+    public String getDescription() {
+        return description;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(date, amount, date, description);
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Movement_type getMovement_type() {
+        return movement_type;
+    }
+
+    public void setMovement_type(Movement_type movement_type) {
+        this.movement_type = movement_type;
     }
 
     @Override
     public String toString() {
-        return "MovementDTO{" + "date=" + date + ", amount=" + amount + ", date=" + date + ", description=" + description + '}';
+        return "El id es: " + id +
+                ". La fecha es: " + date +
+                ". El saldo es: " + amount +
+                ". La descripcion es: " + description +
+                ". La cuenta es: " + account +
+                ". El tipo de cuenta: " + movement_type;
     }
 }

@@ -2,7 +2,8 @@ package ar.com.ada.maven.root.model.dao;
 
 import java.util.Collection;
 
-public interface DAO <T>{
+
+public interface DAO<T> {
     Collection<T> findAll();
 
     T findById(Integer id);
@@ -12,5 +13,4 @@ public interface DAO <T>{
     Boolean update(T t, Integer id);
 
     Boolean delete(Integer id);
-
 }

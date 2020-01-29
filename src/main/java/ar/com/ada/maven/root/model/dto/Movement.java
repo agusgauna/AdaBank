@@ -1,14 +1,14 @@
-package ar.com.ada.maven.DTO;
+package ar.com.ada.maven.root.model.dto;
 
 import java.util.Date;
 import java.util.Objects;
 
-public class MovementDTO {
+public class Movement {
     private Date date;
     private double amount;
     private char description;
 
-    public MovementDTO(Date date, double amount, Date date1, char description) {
+    public Movement(Date date, double amount, Date date1, char description) {
         this.date = date;
         this.amount = amount;
         this.date = date1;
@@ -43,7 +43,7 @@ public class MovementDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MovementDTO that = (MovementDTO) o;
+        Movement that = (Movement) o;
         return Double.compare(that.amount, amount) == 0 &&
                 description == that.description &&
                 Objects.equals(date, that.date) &&

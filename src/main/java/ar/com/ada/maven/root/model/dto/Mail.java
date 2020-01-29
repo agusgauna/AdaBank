@@ -1,11 +1,11 @@
-package ar.com.ada.maven.DTO;
+package ar.com.ada.maven.root.model.dto;
 
 import java.util.Objects;
 
-public class MailDTO {
+public class Mail {
     private char mail;
 
-    public MailDTO(char mail) {
+    public Mail(char mail) {
         this.mail = mail;
     }
 
@@ -21,7 +21,7 @@ public class MailDTO {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MailDTO mailDTO = (MailDTO) o;
+        Mail mailDTO = (Mail) o;
         return mail == mailDTO.mail;
     }
 

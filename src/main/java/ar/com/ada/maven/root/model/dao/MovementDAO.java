@@ -59,8 +59,26 @@ public class MovementDAO implements DAO<Movement> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
-            if (rs.next())
-                movement = new Movement(rs.getDate())
+            if (rs.next()) {
+                Account account = accountDAO.findById(rs.getInt("account_id"));
+            Movement_type movement_type = movement_typeDAO.findById(rs.getInt("movement_type_id"));
+            movement = new Movement(rs.getInt("id"), rs.getDate("date"), rs.getDouble("amount"),
+                    rs.getString("description"), account, movement_type);
+            }
+            if (willCloseConnection)
+                connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return movement;
+    }
+    public boolean save (Movement movement) {
+        String sql = "INSERT INTO Movement VALUES ?";
+        int hasInsert = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, movement.get);
         }
     }
 }

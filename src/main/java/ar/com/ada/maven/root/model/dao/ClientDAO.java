@@ -55,7 +55,7 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"))
+                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
 
             if (willCloseConnection) ;
             connection.close();
@@ -149,7 +149,7 @@ public class ClientDAO implements DAO<Client> {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Client client = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
-                clientes.add();
+                clientes.add(client);
             }
             connection.close();
 
@@ -158,5 +158,5 @@ public class ClientDAO implements DAO<Client> {
         }
         return clientes;
     }
-    
+
 }

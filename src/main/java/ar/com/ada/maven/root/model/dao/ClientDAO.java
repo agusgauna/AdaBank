@@ -104,8 +104,59 @@ public class ClientDAO implements DAO<Client> {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return hasSave == 1;
-        }
-
-
-
     }
+
+    @Override
+    public Boolean update(Client client, Integer id) {
+        String sql = "UPDATE Client set name = ? where id? ? ";
+        int hasUpdate = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, client.getName());
+            preparedStatement.setInt(2, id);
+        } catch (SQLException e) {
+            System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
+        }
+        return hasUpdate == 1;
+    }
+
+    @Override
+    public Boolean delete(Integer id) {
+        String sql = "DELETE FROM Client WHERE id = ?";
+        int hasDelete = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+
+            hasDelete = preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
+        }
+        return hasDelete == 1;
+    }
+
+    public List<Client> findAll(int limit, int offset) {
+        String sql = "SELECT FROM Client LIMIT ? OFFSET ?";
+        List<Client> clientes = new ArrayList<>();
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Client client = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
+                clientes.add();
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
+        }
+        return clientes;
+    }
+    
+}

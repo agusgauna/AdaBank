@@ -15,13 +15,6 @@ public class MovementDAO implements DAO<Movement> {
     private Movement_typeDAO movement_typeDAO = new Movement_typeDAO(false);
     private Boolean willCloseConnection = true;
 
-    private Integer id;
-    private Date date;
-    private Double amount;
-    private String description;
-    private Account account;
-    private Movement_type movement_type;
-
     public MovementDAO() {}
 
     public MovementDAO(Boolean willCloseConnection) {
@@ -72,13 +65,29 @@ public class MovementDAO implements DAO<Movement> {
         }
         return movement;
     }
-    public boolean save (Movement movement) {
-        String sql = "INSERT INTO Movement VALUES ?";
+    public Boolean save (Movement movement) {
+        String sql = "INSERT INTO Movement (id, date, amount, description, account, movement_type) VALUES (?,?,?,?,?,?)";
         int hasInsert = 0;
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, movement.get);
+            preparedStatement.setString(1, movement.getDescription());
+            hasInsert = preparedStatement.executeUpdate();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
+        return hasInsert == 1;
     }
+
+    @Override
+    public Boolean update(Movement movement, Integer id) {
+        return null;
+    }
+
+    @Override
+    public Boolean delete(Integer id) {
+        return null;
+    }
+
 }

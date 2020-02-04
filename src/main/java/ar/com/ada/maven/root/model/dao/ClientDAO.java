@@ -138,7 +138,7 @@ public class ClientDAO implements DAO<Client> {
         return hasDelete == 1;
     }
 
-<<<<<<< Updated upstream
+
     public List<Client> findAll(int limit, int offset) {
         String sql = "SELECT FROM Client LIMIT ? OFFSET ?";
         List<Client> clientes = new ArrayList<>();
@@ -158,8 +158,7 @@ public class ClientDAO implements DAO<Client> {
             System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
         }
         return clientes;
-=======
->>>>>>> Stashed changes
+
     }
 
 }

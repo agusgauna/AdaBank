@@ -71,7 +71,10 @@ public class MovementDAO implements DAO<Movement> {
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, movement.getDescription());
+            preparedStatement.setInt(1,movement.getId());
+            preparedStatement.setDate(2, (java.sql.Date) movement.getDate());
+            preparedStatement.setDouble(3,movement.getAmount());
+            preparedStatement.setString(4,movement.getDescription());
             hasInsert = preparedStatement.executeUpdate();
             connection.close();
         } catch (Exception e) {

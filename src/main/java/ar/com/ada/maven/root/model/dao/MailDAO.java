@@ -74,7 +74,12 @@ public class MailDAO implements DAO<Mail> {
     }
 
     @Override
-    public Boolean update(char mail) {
+    public Boolean update(Mail mail, Integer id) {
+        return null;
+    }
+
+    @Override
+    public Boolean delete(Integer id) {
         return null;
     }
 

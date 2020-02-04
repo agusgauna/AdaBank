@@ -5,34 +5,35 @@ import ar.com.ada.maven.root.model.dto.*;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-public class MailDAO implements DAO<Mail> {
-    private MailDAO mailDAO = new MailDAO(false);
+public class ContactDAO implements DAO<Contact> {
+    private ContactDAO mailDAO = new ContactDAO(false);
     private ClientDAO clientDAO = new ClientDAO(false);
     private Boolean willCloseConnection = true;
 
-    private char mail;
+    public Integer id;
+    public String mail;
+    public int telephone;
     private Client client;
 
-    public MailDAO() {
+    public ContactDAO() {
     }
 
-    public MailDAO(Boolean willCloseConnection) {
+    public ContactDAO(Boolean willCloseConnection) {
         this.willCloseConnection = willCloseConnection;
     }
 
-    public List<Mail> findAll() {
+    public List<Contact> findAll() {
         String sql = "SELECT * FROM Mail";
-        ArrayList<Mail> mails = new ArrayList<>();
+        ArrayList<Contact> contacts = new ArrayList<>();
 
         try {
             Connection connection = DBConection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Mail mail = mailDAO.findById(rs.getInt("id"));
+                Contact contact = mailDAO.findById(rs.getInt("id"));
                 Client client = new Client(rs.getInt("id"), rs.getString("name"),
                         rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
                 Client.add(client);
@@ -42,12 +43,12 @@ public class MailDAO implements DAO<Mail> {
         } catch (SQLException e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
-        return mails;
+        return contacts;
     }
 
-    public Mail findById(Integer id) {
+    public Contact findById(Integer id) {
         String sql = "SELECT * FROM Mail WHERE id = ?";
-        Mail mail = null;
+        Contact contact = null;
 
         try {
             Connection connection = DBConection.getConnection();
@@ -55,7 +56,7 @@ public class MailDAO implements DAO<Mail> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                Mail mail1 = mailDAO.findById(rs.getInt("id"));
+                Contact contact1 = mailDAO.findById(rs.getInt("id"));
                 Client client = new Client(rs.getInt("id"), rs.getString("name"),
                         rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
                 Client.add(client);
@@ -65,21 +66,31 @@ public class MailDAO implements DAO<Mail> {
         } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
-        return mail;
+        return contact;
     }
 
     @Override
-    public Boolean save(Mail mail) {
+    public ContactDAO findById(String mail) {
         return null;
     }
 
     @Override
-    public Boolean update(Mail mail, Integer id) {
+    public Boolean save(Contact contact) {
+        return null;
+    }
+
+    @Override
+    public Boolean update(Contact contact, Integer id) {
         return null;
     }
 
     @Override
     public Boolean delete(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Boolean update(char mail) {
         return null;
     }
 

@@ -1,7 +1,6 @@
 package ar.com.ada.maven.root.model.dto;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class Movement {
     private Integer id;

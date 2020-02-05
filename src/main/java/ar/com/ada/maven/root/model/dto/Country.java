@@ -6,7 +6,7 @@ public class Country {
     public int code;
     private Country country;
 
-    public Country() {
+    public Country(int id, String name, int code) {
     }
 
     public Country(Integer id, String name, int code, Country country) {

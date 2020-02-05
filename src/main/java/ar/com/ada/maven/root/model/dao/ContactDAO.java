@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactDAO implements DAO<Contact> {
-    private ContactDAO mailDAO = new ContactDAO(false);
+    private ContactDAO contactDAO = new ContactDAO(false);
     private ClientDAO clientDAO = new ClientDAO(false);
     private Boolean willCloseConnection = true;
 
@@ -25,7 +25,7 @@ public class ContactDAO implements DAO<Contact> {
     }
 
     public List<Contact> findAll() {
-        String sql = "SELECT * FROM Mail";
+        String sql = "SELECT * FROM Contact";
         ArrayList<Contact> contacts = new ArrayList<>();
 
         try {
@@ -33,10 +33,10 @@ public class ContactDAO implements DAO<Contact> {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Contact contact = mailDAO.findById(rs.getInt("id"));
+                Contact contact = contactDAO.findById(rs.getInt("id"));
                 Client client = new Client(rs.getInt("id"), rs.getString("name"),
                         rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
-                Client.add(client);
+                contacts.add(contact);
 
             }
             connection.close();
@@ -47,7 +47,7 @@ public class ContactDAO implements DAO<Contact> {
     }
 
     public Contact findById(Integer id) {
-        String sql = "SELECT * FROM Mail WHERE id = ?";
+        String sql = "SELECT * FROM Contact WHERE id = ?";
         Contact contact = null;
 
         try {
@@ -56,10 +56,9 @@ public class ContactDAO implements DAO<Contact> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                Contact contact1 = mailDAO.findById(rs.getInt("id"));
+                Contact contact1 = contactDAO.findById(rs.getInt("id"));
                 Client client = new Client(rs.getInt("id"), rs.getString("name"),
                         rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
-                Client.add(client);
             }
             if (willCloseConnection)
                 connection.close();
@@ -68,11 +67,7 @@ public class ContactDAO implements DAO<Contact> {
         }
         return contact;
     }
-
-    @Override
-    public ContactDAO findById(String mail) {
-        return null;
-    }
+    
 
     @Override
     public Boolean save(Contact contact) {
@@ -89,9 +84,5 @@ public class ContactDAO implements DAO<Contact> {
         return null;
     }
 
-    @Override
-    public Boolean update(char mail) {
-        return null;
-    }
 
 }

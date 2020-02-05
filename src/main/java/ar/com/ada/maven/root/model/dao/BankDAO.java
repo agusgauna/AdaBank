@@ -2,6 +2,7 @@ package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
 import ar.com.ada.maven.root.model.dto.Account;
+import ar.com.ada.maven.root.model.dto.Account_type;
 import ar.com.ada.maven.root.model.dto.Bank;
 
 import java.sql.*;
@@ -21,7 +22,7 @@ public class BankDAO implements DAO<Bank> {
 
 
     @Override
-    public ArrayList<Bank> findAll() {
+    public List<Account_type> findAll() {
         String sql = "SELECT * FROM Bank";
 
         ArrayList<Account> bancos = new ArrayList<>();

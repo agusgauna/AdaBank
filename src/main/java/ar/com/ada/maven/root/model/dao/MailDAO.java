@@ -5,7 +5,6 @@ import ar.com.ada.maven.root.model.dto.*;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MailDAO implements DAO<Mail> {
@@ -23,7 +22,7 @@ public class MailDAO implements DAO<Mail> {
         this.willCloseConnection = willCloseConnection;
     }
 
-    public List<Mail> findAll() {
+    public List<Account_type> findAll() {
         String sql = "SELECT * FROM Mail";
         ArrayList<Mail> mails = new ArrayList<>();
 

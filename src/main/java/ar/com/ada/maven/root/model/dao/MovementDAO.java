@@ -2,12 +2,13 @@ package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
 import ar.com.ada.maven.root.model.dto.Account;
+import ar.com.ada.maven.root.model.dto.Account_type;
 import ar.com.ada.maven.root.model.dto.Movement;
 import ar.com.ada.maven.root.model.dto.Movement_type;
 
 import java.sql.*;
+
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class MovementDAO implements DAO<Movement> {
@@ -21,9 +22,9 @@ public class MovementDAO implements DAO<Movement> {
         this.willCloseConnection = willCloseConnection;
     }
 
-    public List<Movement> findAll() {
+    public List<Account_type> findAll() {
         String sql = "SELECT * FROM Movement";
-        ArrayList<Movement> movements = new ArrayList<>();
+        List<Movement> movements = new ArrayList<>();
 
         try {
             Connection connection = DBConection.getConnection();
@@ -84,9 +85,7 @@ public class MovementDAO implements DAO<Movement> {
     }
 
     @Override
-    public Boolean update(Movement movement, Integer id) {
-        return null;
-    }
+    public Boolean update(Movement movement, Integer id) { return null; }
 
     @Override
     public Boolean delete(Integer id) {

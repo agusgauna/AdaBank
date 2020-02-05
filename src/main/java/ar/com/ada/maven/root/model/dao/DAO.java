@@ -1,10 +1,12 @@
 package ar.com.ada.maven.root.model.dao;
 
-import java.util.Collection;
+import ar.com.ada.maven.root.model.dto.Account_type;
+
+import java.util.List;
 
 
 public interface DAO<T> {
-    Collection<T> findAll();
+    List<Account_type> findAll();
 
     T findById(Integer id);
 

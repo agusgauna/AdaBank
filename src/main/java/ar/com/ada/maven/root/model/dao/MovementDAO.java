@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MovementDAO implements DAO<Movement> {
+    public class MovementDAO implements DAO<Movement> {
     private AccountDAO accountDAO = new AccountDAO(false);
     private Movement_typeDAO movement_typeDAO = new Movement_typeDAO(false);
     private Boolean willCloseConnection = true;

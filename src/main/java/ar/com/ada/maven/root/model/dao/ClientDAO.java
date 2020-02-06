@@ -66,6 +66,11 @@ public class ClientDAO implements DAO<Client> {
         return cliente;
     }
 
+    @Override
+    public ContactDAO findById(String contact) {
+        return null;
+    }
+
     public Client findByName(String name, String lastName) {
         String sql = "SELECT * FROM Client where name = ? AND lastname = ?";
         Client client = null;

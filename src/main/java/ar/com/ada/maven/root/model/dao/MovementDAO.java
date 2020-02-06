@@ -1,10 +1,7 @@
 package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
-import ar.com.ada.maven.root.model.dto.Account;
-import ar.com.ada.maven.root.model.dto.Account_type;
-import ar.com.ada.maven.root.model.dto.Movement;
-import ar.com.ada.maven.root.model.dto.Movement_type;
+import ar.com.ada.maven.root.model.dto.*;
 
 import java.sql.*;
 
@@ -22,7 +19,7 @@ public class MovementDAO implements DAO<Movement> {
         this.willCloseConnection = willCloseConnection;
     }
 
-    public List<Account_type> findAll() {
+    public List<Mail> findAll() {
         String sql = "SELECT * FROM Movement";
         List<Movement> movements = new ArrayList<>();
 

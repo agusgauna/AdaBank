@@ -22,7 +22,7 @@ public class MailDAO implements DAO<Mail> {
         this.willCloseConnection = willCloseConnection;
     }
 
-    public List<Account_type> findAll() {
+    public List<Mail> findAll() {
         String sql = "SELECT * FROM Mail";
         ArrayList<Mail> mails = new ArrayList<>();
 

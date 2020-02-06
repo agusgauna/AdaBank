@@ -2,8 +2,8 @@ package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
 import ar.com.ada.maven.root.model.dto.Account;
-import ar.com.ada.maven.root.model.dto.Account_type;
 import ar.com.ada.maven.root.model.dto.Client;
+import ar.com.ada.maven.root.model.dto.Mail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ public class AccountDAO implements DAO<Account> {
     private ClientDAO clientDAO = new ClientDAO(false);
 
     @Override
-    public List<Account_type> findAll() {
+    public List<Mail> findAll() {
         String sql = "SELECT * FROM Account";
 
         ArrayList<Account> accounts = new ArrayList<>();

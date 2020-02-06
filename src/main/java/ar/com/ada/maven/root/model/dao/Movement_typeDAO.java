@@ -1,7 +1,7 @@
 package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
-import ar.com.ada.maven.root.model.dto.Account_type;
+import ar.com.ada.maven.root.model.dto.Mail;
 import ar.com.ada.maven.root.model.dto.Movement_type;
 
 import java.sql.*;
@@ -18,7 +18,7 @@ public class Movement_typeDAO implements DAO<Movement_type>{
     }
 
     @Override
-    public List<Account_type> findAll() {
+    public List<Mail> findAll() {
         String sql = "SELECT * FROM Movement_type";
         List<Movement_type> movement_types = new ArrayList<>();
 

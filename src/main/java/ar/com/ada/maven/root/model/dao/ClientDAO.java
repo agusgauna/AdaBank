@@ -1,8 +1,8 @@
 package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
-import ar.com.ada.maven.root.model.dto.Account_type;
 import ar.com.ada.maven.root.model.dto.Client;
+import ar.com.ada.maven.root.model.dto.Mail;
 
 
 import java.sql.*;
@@ -26,7 +26,7 @@ public class ClientDAO implements DAO<Client> {
 
     @Override
 
-    public List<Account_type> findAll() {
+    public List<Mail> findAll() {
         String sql = "SELECT * FROM Client";
         List<Client> clientes = new ArrayList<>();
 
@@ -138,26 +138,4 @@ public class ClientDAO implements DAO<Client> {
         }
         return hasDelete == 1;
     }
-
-    public List<Client> findAll(int limit, int offset) {
-        String sql = "SELECT FROM Client LIMIT ? OFFSET ?";
-        List<Client> clientes = new ArrayList<>();
-        try {
-            Connection connection = DBConection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, limit);
-            preparedStatement.setInt(2, offset);
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                Client client = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
-                clientes.add(client);
-            }
-            connection.close();
-
-        } catch (SQLException e) {
-            System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
-        }
-        return clientes;
-    }
-
 }

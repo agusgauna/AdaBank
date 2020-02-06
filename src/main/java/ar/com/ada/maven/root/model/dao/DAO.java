@@ -1,12 +1,12 @@
 package ar.com.ada.maven.root.model.dao;
 
-import ar.com.ada.maven.root.model.dto.Account_type;
+import ar.com.ada.maven.root.model.dto.Mail;
 
 import java.util.List;
 
 
 public interface DAO<T> {
-    List<Account_type> findAll();
+    List<Mail> findAll();
 
     T findById(Integer id);
 

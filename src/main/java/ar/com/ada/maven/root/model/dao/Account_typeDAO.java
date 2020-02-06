@@ -2,6 +2,7 @@ package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
 import ar.com.ada.maven.root.model.dto.Account_type;
+import ar.com.ada.maven.root.model.dto.Mail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,10 +11,6 @@ import java.util.List;
 public class Account_typeDAO implements DAO<Account_type> {
     private Boolean willCloseConnection = true;
 
-    private int id;
-    private String name;
-    private String code_control;
-
     public Account_typeDAO() { }
 
     public Account_typeDAO(Boolean willCloseConnection) {
@@ -21,7 +18,7 @@ public class Account_typeDAO implements DAO<Account_type> {
     }
 
     @Override
-    public List<Account_type> findAll() {
+    public List<Mail> findAll() {
         String sql = "SELECT * FROM Account_type";
         List<Account_type> account_types = new ArrayList<>();
 

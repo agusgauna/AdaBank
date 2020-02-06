@@ -121,7 +121,7 @@ public class ContactDAO implements DAO<Contact> {
             preparedStatement.setString(2, mail);
             preparedStatement.setInt(2, telephone);
             preparedStatement.setInt(3, client.getId());
-            
+
             hasDelete = preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -129,7 +129,5 @@ public class ContactDAO implements DAO<Contact> {
         }
         return hasDelete == 1;
     }
-    }
-
-
 }
+

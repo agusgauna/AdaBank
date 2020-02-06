@@ -2,6 +2,7 @@ package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
 import ar.com.ada.maven.root.model.dto.Country;
+import sun.security.pkcs11.Secmod;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -61,17 +62,57 @@ import java.util.List;
 
         @Override
         public Boolean save(Country country) {
-            return null;
+            String sql = "INSERT INTO Country (name,code) values (?,?)";
+            int newCountry = 0;
+            try {
+                Connection connection = DBConection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, country.getName());
+                preparedStatement.executeUpdate();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return newCountry == 1;
         }
 
         @Override
         public Boolean update(Country country, Integer id) {
-            return null;
+            String sql = "UPDATE Country SET country = ? WHERE Id = ?";
+            int hasUpdate = 0;
+
+            //para comparar un objeto que quiero  debo actualizar con la base de datos.
+            Country countryDB = findById(id);
+
+            try {
+                Connection connection = DBConection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setString(1, country.getName());
+                preparedStatement.setInt(2, id);
+
+                if (!country.getName().equals(countryDB.getName()))
+                    hasUpdate = preparedStatement.executeUpdate();
+                connection.close();
+            } catch (Exception e) {
+                System.out.println("CONNECTION ERROR: " + e.getMessage());
+            }
+            return hasUpdate == 1;
         }
 
         @Override
         public Boolean delete(Integer id) {
-            return null;
+            String sql = "DELETE FROM Country WHERE Id = ?";
+            int hasDelete = 0;
+            try {
+                Connection connection = DBConection.getConnection();
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, id);
+                hasDelete = preparedStatement.executeUpdate();
+
+            } catch (Exception e) {
+                System.out.println("CONNECTION ERROR: " + e.getMessage());
+            }
+            return hasDelete == 1;
         }
 
     }

@@ -67,21 +67,68 @@ public class ContactDAO implements DAO<Contact> {
         }
         return contact;
     }
-    
+
 
     @Override
     public Boolean save(Contact contact) {
-        return null;
+        String sql = "INSERT INTO Contact (mail,telephone,client) values (?,?,>)";
+        int newContact = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, contact.getMail());
+            preparedStatement.setInt(2, contact.getTelephone());
+            preparedStatement.setInt(3, contact.getClient().getId());
+            preparedStatement.executeUpdate();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return newContact == 1;
     }
 
     @Override
     public Boolean update(Contact contact, Integer id) {
-        return null;
+        String sql = "UPDATE Contact SET contact = ? WHERE Id = ?";
+        int hasUpdate = 0;
+
+        Contact contactDB = findById(id);
+
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, contact.getMail());
+            preparedStatement.setInt(2, contact.getTelephone());
+            preparedStatement.setInt(3, contact.getClient().getId());
+
+            hasUpdate = preparedStatement.executeUpdate();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return hasUpdate == 1;
     }
 
     @Override
     public Boolean delete(Integer id) {
-        return null;
+        String sql = "DELETE FROM Contact WHERE Id = ?";
+        int hasDelete = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, id);
+            preparedStatement.setString(2, mail);
+            preparedStatement.setInt(2, telephone);
+            preparedStatement.setInt(3, client.getId());
+            
+            hasDelete = preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return hasDelete == 1;
+    }
     }
 
 

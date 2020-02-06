@@ -1,6 +1,6 @@
 package ar.com.ada.maven.root.model.dto;
 
-public class Sucursal {
+public class Branch {
 
 
     private int id;
@@ -8,10 +8,10 @@ public class Sucursal {
     private int code;
     private Bank bankId;
 
-    public Sucursal() {
+    public Branch() {
     }
 
-    public Sucursal(int id, String name, int code, Bank bankId) {
+    public Branch(int id, String name, int code, Bank bankId) {
         this.id = id;
         this.name = name;
         this.code = code;

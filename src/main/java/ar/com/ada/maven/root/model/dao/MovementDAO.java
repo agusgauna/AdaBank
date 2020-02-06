@@ -7,15 +7,14 @@ import ar.com.ada.maven.root.model.dto.Movement_type;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-    public class MovementDAO implements DAO<Movement> {
+public class MovementDAO implements DAO<Movement> {
     private AccountDAO accountDAO = new AccountDAO(false);
     private Movement_typeDAO movement_typeDAO = new Movement_typeDAO(false);
     private Boolean willCloseConnection = true;
 
-    public MovementDAO() {}
+    public MovementDAO() { }
 
     public MovementDAO(Boolean willCloseConnection) {
         this.willCloseConnection = willCloseConnection;
@@ -54,9 +53,9 @@ import java.util.List;
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 Account account = accountDAO.findById(rs.getInt("account_id"));
-            Movement_type movement_type = movement_typeDAO.findById(rs.getInt("movement_type_id"));
-            movement = new Movement(rs.getInt("id"), rs.getDate("date"), rs.getDouble("amount"),
-                    rs.getString("description"), account, movement_type);
+                Movement_type movement_type = movement_typeDAO.findById(rs.getInt("movement_type_id"));
+                movement = new Movement(rs.getInt("id"), rs.getDate("date"), rs.getDouble("amount"),
+                        rs.getString("description"), account, movement_type);
             }
             if (willCloseConnection)
                 connection.close();
@@ -65,16 +64,18 @@ import java.util.List;
         }
         return movement;
     }
-    public Boolean save (Movement movement) {
+
+
+    public Boolean save(Movement movement) {
         String sql = "INSERT INTO Movement (id, date, amount, description, account, movement_type) VALUES (?,?,?,?,?,?)";
         int hasInsert = 0;
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1,movement.getId());
+            preparedStatement.setInt(1, movement.getId());
             preparedStatement.setDate(2, (java.sql.Date) movement.getDate());
-            preparedStatement.setDouble(3,movement.getAmount());
-            preparedStatement.setString(4,movement.getDescription());
+            preparedStatement.setDouble(3, movement.getAmount());
+            preparedStatement.setString(4, movement.getDescription());
             hasInsert = preparedStatement.executeUpdate();
             connection.close();
         } catch (Exception e) {

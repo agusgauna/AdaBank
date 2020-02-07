@@ -8,17 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactDAO implements DAO<Contact> {
-    private ContactDAO contactDAO = new ContactDAO(false);
     private ClientDAO clientDAO = new ClientDAO(false);
     private Boolean willCloseConnection = true;
 
-    public Integer id;
-    public String mail;
-    public int telephone;
-    private Client client;
-
-    public ContactDAO() {
-    }
+    public ContactDAO() { }
 
     public ContactDAO(Boolean willCloseConnection) {
         this.willCloseConnection = willCloseConnection;
@@ -27,20 +20,17 @@ public class ContactDAO implements DAO<Contact> {
     public List<Contact> findAll() {
         String sql = "SELECT * FROM Contact";
         ArrayList<Contact> contacts = new ArrayList<>();
-
         try {
             Connection connection = DBConection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Contact contact = contactDAO.findById(rs.getInt("id"));
-                Client client = new Client(rs.getInt("id"), rs.getString("name"),
-                        rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
+                Client client = clientDAO.findById(rs.getInt("client_id"));
+                Contact contact = new Contact(rs.getInt("id"), rs.getString("mail"), rs.getInt("telephone"), client);
                 contacts.add(contact);
-
             }
             connection.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return contacts;
@@ -56,9 +46,8 @@ public class ContactDAO implements DAO<Contact> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                Contact contact1 = contactDAO.findById(rs.getInt("id"));
-                Client client = new Client(rs.getInt("id"), rs.getString("name"),
-                        rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
+                Client client = clientDAO.findById(rs.getInt("client_id"));
+                contact = new Contact(rs.getInt("id"), rs.getString("mail"), rs.getInt("telephone"), client);
             }
             if (willCloseConnection)
                 connection.close();
@@ -91,9 +80,7 @@ public class ContactDAO implements DAO<Contact> {
     public Boolean update(Contact contact, Integer id) {
         String sql = "UPDATE Contact SET contact = ? WHERE Id = ?";
         int hasUpdate = 0;
-
         Contact contactDB = findById(id);
-
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -101,7 +88,6 @@ public class ContactDAO implements DAO<Contact> {
             preparedStatement.setString(2, contact.getMail());
             preparedStatement.setInt(2, contact.getTelephone());
             preparedStatement.setInt(3, contact.getClient().getId());
-
             hasUpdate = preparedStatement.executeUpdate();
             connection.close();
         } catch (Exception e) {
@@ -118,10 +104,6 @@ public class ContactDAO implements DAO<Contact> {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
-            preparedStatement.setString(2, mail);
-            preparedStatement.setInt(2, telephone);
-            preparedStatement.setInt(3, client.getId());
-            
             hasDelete = preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -129,7 +111,4 @@ public class ContactDAO implements DAO<Contact> {
         }
         return hasDelete == 1;
     }
-    }
-
-
 }

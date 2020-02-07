@@ -23,7 +23,6 @@ public class MovementDAO implements DAO<Movement> {
     public List<Movement> findAll() {
         String sql = "SELECT * FROM Movement";
         ArrayList<Movement> movements = new ArrayList<>();
-
         try {
             Connection connection = DBConection.getConnection();
             Statement statement = connection.createStatement();
@@ -45,7 +44,6 @@ public class MovementDAO implements DAO<Movement> {
     public Movement findById(Integer id) {
         String sql = "SELECT * FROM Movement WHERE id = ?";
         Movement movement = null;
-
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

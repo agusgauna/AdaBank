@@ -11,9 +11,6 @@ import java.util.List;
 public class Account_typeDAO implements DAO<Account_type> {
     private Boolean willCloseConnection = true;
 
-    private int id;
-    private String name;
-    private Integer code_control;
 
     public Account_typeDAO() { }
 

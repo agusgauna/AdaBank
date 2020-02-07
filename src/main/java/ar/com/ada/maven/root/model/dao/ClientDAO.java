@@ -9,37 +9,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDAO implements DAO<Client> {
-    private int id;
-    private String name;
-    private String lastName;
-    private int documentNumber;
-    private String typeDocument;
-
     private Boolean willCloseConnection = true;
 
-    public ClientDAO() {
-    }
+    public ClientDAO() { }
 
     public ClientDAO(Boolean willCloseConnection) {
+        this.willCloseConnection = willCloseConnection;
     }
 
     @Override
-
     public List<Client> findAll() {
         String sql = "SELECT * FROM Client";
         List<Client> clientes = new ArrayList<>();
-
 
         try {
             Connection connection = DBConection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Client client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
+                Client client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
                 clientes.add(client);
             }
             connection.close();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return clientes;
@@ -55,20 +47,14 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
+                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
 
             if (willCloseConnection) ;
             connection.close();
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return cliente;
-    }
-
-    @Override
-    public ContactDAO findById(String contact) {
-        return null;
     }
 
     public Client findByName(String name, String lastName) {
@@ -82,7 +68,7 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setString(2, lastName);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                client = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
+                client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
             if (willCloseConnection)
                 connection.close();
         } catch (SQLException e) {
@@ -101,7 +87,6 @@ public class ClientDAO implements DAO<Client> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, client.getName());
             preparedStatement.setString(2, client.getLastName());
-
             hasSave = preparedStatement.executeUpdate();
             connection.close();
 
@@ -120,7 +105,7 @@ public class ClientDAO implements DAO<Client> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, client.getName());
             preparedStatement.setInt(2, id);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
         }
         return hasUpdate == 1;
@@ -134,7 +119,6 @@ public class ClientDAO implements DAO<Client> {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
-
             hasDelete = preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
@@ -154,7 +138,7 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(2, offset);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Client client = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getInt("documentNumber"), rs.getString("typeDocument"));
+                Client client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
                 clientes.add(client);
             }
             connection.close();
@@ -163,7 +147,6 @@ public class ClientDAO implements DAO<Client> {
             System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
         }
         return clientes;
-
     }
 
 }

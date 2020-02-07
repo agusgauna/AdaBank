@@ -9,15 +9,13 @@ import java.util.ArrayList;
 import java.util.List;
 
     public class CountryDAO implements DAO<Country> {
-
         private Boolean willCloseConnection = true;
-        public Integer id;
-        public String name;
-        public int code;
-        private Country country;
 
         public CountryDAO() {}
 
+        public CountryDAO(Boolean willCloseConnection) {
+            this.willCloseConnection = willCloseConnection;
+        }
 
         @Override
         public List<Country> findAll() {
@@ -68,10 +66,10 @@ import java.util.List;
                 Connection connection = DBConection.getConnection();
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setString(1, country.getName());
-                preparedStatement.executeUpdate();
+                newCountry = preparedStatement.executeUpdate();
                 connection.close();
             } catch (SQLException e) {
-                e.printStackTrace();
+                System.out.println("CONNECTION ERROR: " + e.getMessage());
             }
             return newCountry == 1;
         }
@@ -80,7 +78,6 @@ import java.util.List;
         public Boolean update(Country country, Integer id) {
             String sql = "UPDATE Country SET country = ? WHERE Id = ?";
             int hasUpdate = 0;
-
             //para comparar un objeto que quiero  debo actualizar con la base de datos.
             Country countryDB = findById(id);
 

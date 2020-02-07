@@ -3,14 +3,14 @@ package ar.com.ada.maven.root.model.dto;
 import java.util.Objects;
 
 public class Contact {
-    public Integer id;
+    public int id;
     public String mail;
     public int telephone;
     private Client client;
 
     public Contact(){}
 
-    public Contact(Integer id, String mail, int telephone, Client client){
+    public Contact(int id, String mail, int telephone, Client client){
         this.id = id;
         this.mail = mail;
         this.telephone = telephone;
@@ -21,7 +21,7 @@ public class Contact {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -51,6 +51,9 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{" + "id=" + id + " mail='" + mail + '\'' + " telephone=" + telephone + " client=" + client + '}';
+        return "El id del contacto es: " + id +
+                ". El mail de contacto es: " + mail +
+                ". El telefono de contacto es: " + telephone +
+                ". El cliente es: " + client;
     }
 }

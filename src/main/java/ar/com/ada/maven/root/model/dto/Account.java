@@ -3,19 +3,22 @@ package ar.com.ada.maven.root.model.dto;
 public class Account {
     private int id;
     private String currency;
-    private int accountNumber;
+    private int number;
     private double balance;
     private Client client;
+    private Account_type account_type;
+    private Branch branch;
 
-    public Account() {
-    }
+    public Account() { }
 
-    public Account(int id, String currency, int accountNumber, double balance, Client client) {
+    public Account(int id, String currency, int number, double balance, Client client, Account_type account_type, Branch branch) {
         this.id = id;
         this.currency = currency;
-        this.accountNumber = accountNumber;
+        this.number = number;
         this.balance = balance;
         this.client = client;
+        this.account_type = account_type;
+        this.branch = branch;
     }
 
     public int getId() {
@@ -34,12 +37,12 @@ public class Account {
         this.currency = currency;
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public int getNumber() {
+        return number;
     }
 
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setNumber(int number) {
+        this.number = number;
     }
 
     public double getBalance() {
@@ -56,5 +59,32 @@ public class Account {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public Account_type getAccount_type() {
+        return account_type;
+    }
+
+    public void setAccount_type(Account_type account_type) {
+        this.account_type = account_type;
+    }
+
+    public Branch getBranch() {
+        return branch;
+    }
+
+    public void setBranch(Branch branch) {
+        this.branch = branch;
+    }
+
+    @Override
+    public String toString() {
+        return "El id es: " + id +
+                ". La moneda de la cuenta es: " + currency +
+                ". El nro de cuenta es: " + number +
+                ". El saldo es: " + balance +
+                ". El cliente es: " + client +
+                ". El tipo de cuenta es: " + account_type +
+                ". La sucursal es: " + branch;
     }
 }

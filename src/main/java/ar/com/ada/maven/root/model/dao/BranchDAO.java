@@ -9,8 +9,14 @@ import java.sql.*;
 import java.util.ArrayList;
 
 public class BranchDAO implements DAO<Branch> {
-
+    private BankDAO bankDAO = new BankDAO(false);
     private Boolean willCloseConnection = true;
+
+    public BranchDAO() { }
+
+    public BranchDAO(Boolean willCloseConnection) {
+        this.willCloseConnection = willCloseConnection;
+    }
 
     @Override
     public ArrayList<Branch> findAll() {
@@ -20,14 +26,13 @@ public class BranchDAO implements DAO<Branch> {
             Connection connection = DBConection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-
             while (rs.next()) {
-                Bank banco = BankDAO.findById(rs.getInt(("bank_id")));
-                Branch sucursal = new Branch(rs.getInt("id"), rs.getString("name"), rs.getInt("code"), banco);
+                Bank bank = bankDAO.findById(rs.getInt("bank_id"));
+                Branch sucursal = new Branch(rs.getInt("id"), rs.getString("name"), rs.getInt("code"), bank);
                 sucursales.add(sucursal);
             }
             connection.close();
-        } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+        } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return sucursales;
@@ -43,12 +48,12 @@ public class BranchDAO implements DAO<Branch> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                Bank banco = BankDAO.findById(rs.getInt(("bank_id")));
+                Bank banco = bankDAO.findById(rs.getInt("bank_id"));
                 branch = new Branch(rs.getInt("id"), rs.getString("name"), rs.getInt("code"), banco);
-
             }
-
-        } catch (SQLException | ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+            if (willCloseConnection)
+                connection.close();
+        } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return branch;
@@ -62,16 +67,12 @@ public class BranchDAO implements DAO<Branch> {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, branch.getName());
-
             hasSave = preparedStatement.executeUpdate();
             connection.close();
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
-
         return hasSave == 1;
-
     }
 
     @Override
@@ -83,12 +84,10 @@ public class BranchDAO implements DAO<Branch> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, branch.getName());
             preparedStatement.setInt(2, id);
-
-
-        } catch (SQLException e) {
+            connection.close();
+        } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
-
         return hasUpdate == 1;
     }
 
@@ -102,12 +101,10 @@ public class BranchDAO implements DAO<Branch> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             hasDelete = preparedStatement.executeUpdate();
-            connection.close();
         } catch (SQLException e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return hasDelete == 1;
-
     }
 }
 

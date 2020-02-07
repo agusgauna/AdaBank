@@ -5,7 +5,9 @@ import java.util.Scanner;
 public class Singletone {
     private static Scanner scanner;
 
-    private static Scanner getInstance() {
+    private Singletone() {}
+
+    public static Scanner getInstance() {
         if (scanner == null) {
             scanner = new Scanner(System.in);
         }

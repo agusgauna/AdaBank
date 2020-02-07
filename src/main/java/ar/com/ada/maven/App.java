@@ -1,11 +1,13 @@
 package ar.com.ada.maven;
 
 import ar.com.ada.maven.root.model.DBConection;
+import ar.com.ada.maven.root.model.dao.DAO;
+import ar.com.ada.maven.root.model.dto.Client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class App
-{}
+public class App {
+}

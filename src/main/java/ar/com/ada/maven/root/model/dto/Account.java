@@ -76,4 +76,15 @@ public class Account {
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
+
+    @Override
+    public String toString() {
+        return "El id es: " + id +
+                ". La moneda de la cuenta es: " + currency +
+                ". El nro de cuenta es: " + number +
+                ". El saldo es: " + balance +
+                ". El cliente es: " + client +
+                ". El tipo de cuenta es: " + account_type +
+                ". La sucursal es: " + branch;
+    }
 }

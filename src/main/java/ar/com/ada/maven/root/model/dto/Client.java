@@ -5,19 +5,17 @@ public class Client {
     private int id;
     private String name;
     private String lastName;
-    private int documentNumber;
-    private String typeDocument;
+    private String type_doc;
+    private int doc;
 
-    public Client (){
+    public Client() { }
 
-    }
-
-    public Client(int id, String name, String lastName, int documentNumber, String typeDocument) {
+    public Client(int id, String name, String lastName, String type_doc, int doc) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
-        this.documentNumber = documentNumber;
-        this.typeDocument = typeDocument;
+        this.type_doc = type_doc;
+        this.doc = doc;
     }
 
     public int getId() {
@@ -44,28 +42,28 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public int getDocumentNumber() {
-        return documentNumber;
+    public String getType_doc() {
+        return type_doc;
     }
 
-    public void setDocumentNumber(int documentNumber) {
-        this.documentNumber = documentNumber;
+    public void setType_doc(String type_doc) {
+        this.type_doc = type_doc;
     }
 
-    public String getTypeDocument() {
-        return typeDocument;
+    public int getDoc() {
+        return doc;
     }
 
-    public void setTypeDocument(String typeDocument) {
-        this.typeDocument = typeDocument;
+    public void setDoc(int doc) {
+        this.doc = doc;
     }
 
     @Override
     public String toString() {
-        return "Client{" + "id=" + id +
-                ", name='" + name + '\'' + ", lastName='" + lastName + '\'' +
-                ", documentNumber=" + documentNumber +
-                ", typeDocument='" + typeDocument + '\'' +
-                '}';
+        return "El id del cliente es: " + id +
+                ". El nombre del cliente es: " + name +
+                ". El apellido del cliente es: " + lastName +
+                ". El tipo del documento es: " + type_doc +
+                ". El numero de documento es: " + doc;
     }
 }

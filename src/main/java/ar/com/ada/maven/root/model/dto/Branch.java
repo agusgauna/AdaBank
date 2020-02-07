@@ -52,8 +52,9 @@ public class Branch {
 
     @Override
     public String toString() {
-        return "Sucursal{" + "id=" + id + ", name='" + name + '\'' +
-                ", code=" + code + ", bankId=" + bankId +
-                '}';
+        return "El id es: " + id +
+                ". El nombre de la sucursal es: " + name +
+                ". El codigo de la sucursal es: " + code +
+                ". El banco es: " + bankId;
     }
 }

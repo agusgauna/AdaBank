@@ -51,8 +51,9 @@ public class Bank {
 
     @Override
     public String toString() {
-        return "Bank{" + "id=" + id + ", name='" + name + '\'' +
-                ", iban=" + iban + ", countryId=" + countryId +
-                '}';
+        return "El id es: " + id +
+                ". El nombre del banco es: " + name +
+                ". El codigo iban es: " + iban +
+                ". El pais del banco es: " + countryId;
     }
 }

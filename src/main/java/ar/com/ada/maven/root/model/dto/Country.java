@@ -1,27 +1,23 @@
 package ar.com.ada.maven.root.model.dto;
 
 public class Country {
-    public Integer id;
+    public int id;
     public String name;
     public int code;
-    private Country country;
+
+    public Country() { }
 
     public Country(int id, String name, int code) {
-    }
-
-    public Country(Integer id, String name, int code, Country country) {
         this.id = id;
         this.name = name;
         this.code = code;
-        this.country = country;
-
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -41,17 +37,10 @@ public class Country {
         this.code = code;
     }
 
-    public Country getCountry() {
-        return country;
-    }
-
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     @Override
     public String toString() {
-        return "Country{" + "id=" + id + " name=" + name + '\'' + " code=" + code + " country=" + country + '}';
+        return "El id es: " + id +
+                ". El pais es: " + name + '\'' +
+                ". El codigo del pais es: " + code;
     }
-
 }

@@ -3,6 +3,7 @@ package ar.com.ada.maven.root.view;
 import ar.com.ada.maven.root.model.dto.Account;
 import ar.com.ada.maven.root.utils.Singletone;
 
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
@@ -38,33 +39,24 @@ public class AccountView {
         accounts.forEach(cuentas -> System.out.println(" id: " + cuentas.getId() + "  || nombre: " + cuentas.getClient()));
     }
 
-    public String insertNewAccount() {
-        System.out.println(" Usted ingresará una nueva cuenta ");
-        System.out.println(" Ingrese numero de DNI // Si desea cancelar, no ingrese datos");
 
-        Scanner keyboard2 = Singletone.getInstance();
-        keyboard2.nextLine();
+        public HashMap<String, String> insertNewAccount () {
+            Scanner keyboard2 = Singletone.getInstance();
+            HashMap<String, String> data = new HashMap<>();
 
-        while (true) {
-            try {
-                int doc = Integer.parseInt(keyboard2.nextLine().trim());
-                while (!doc.matches("^[0-9IiAaSsUuEe]+$") && !doc.isEmpty()) {
-                    System.out.println(" Usted debe ingresar una opción válida ");
-                    doc = Integer.parseInt(keyboard2.nextLine());
-                }
-                return doc;
-            } catch (InputMismatchException e) {
-                System.out.println("Usted debe ingresar una opción válida");
-                keyboard2.nextLine();
+            System.out.println(" Usted ingresará una nueva cuenta ");
+            System.out.println(" Ingrese numero de DNI: ");
+            data.put("doc", Singletone.getInputInteger());
 
-            }
-
+            return data;
         }
 
 
-    }
 
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
     }
 }
+
+
+

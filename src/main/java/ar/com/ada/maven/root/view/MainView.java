@@ -27,4 +27,7 @@ public class MainView {
             }
         }
     }
+    public static void invalidData () {
+        System.out.println("Debe ingresar un dato válido");
+    }
 }

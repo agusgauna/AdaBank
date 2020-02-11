@@ -3,14 +3,14 @@ package ar.com.ada.maven.root.model.dto;
 import java.util.Objects;
 
 public class Contact {
-    public int id;
+    public Integer id;
     public String mail;
-    public int telephone;
+    public Integer telephone;
     private Client client;
 
-    public Contact(){}
+    public Contact() { }
 
-    public Contact(int id, String mail, int telephone, Client client){
+    public Contact(Integer id, String mail, Integer telephone, Client client) {
         this.id = id;
         this.mail = mail;
         this.telephone = telephone;
@@ -21,7 +21,7 @@ public class Contact {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,11 +33,11 @@ public class Contact {
         this.mail = mail;
     }
 
-    public int getTelephone() {
+    public Integer getTelephone() {
         return telephone;
     }
 
-    public void setTelephone(int telephone) {
+    public void setTelephone(Integer telephone) {
         this.telephone = telephone;
     }
 

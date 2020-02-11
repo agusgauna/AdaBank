@@ -27,7 +27,7 @@ public class ClientDAO implements DAO<Client> {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Client client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
+                Client client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
                 clientes.add(client);
             }
             connection.close();

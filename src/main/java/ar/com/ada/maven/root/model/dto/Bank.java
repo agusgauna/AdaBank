@@ -2,26 +2,25 @@ package ar.com.ada.maven.root.model.dto;
 
 public class Bank {
 
-    private int id;
+    private Integer id;
     private String name;
-    private int iban;
+    private Integer iban;
     private Country countryId;
 
-    public Bank() {
-    }
+    public Bank() { }
 
-    public Bank(int id, String name, int iban, Country countryId) {
+    public Bank(Integer id, String name, Integer iban, Country countryId) {
         this.id = id;
         this.name = name;
         this.iban = iban;
         this.countryId = countryId;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,11 +32,11 @@ public class Bank {
         this.name = name;
     }
 
-    public int getIban() {
+    public Integer getIban() {
         return iban;
     }
 
-    public void setIban(int iban) {
+    public void setIban(Integer iban) {
         this.iban = iban;
     }
 

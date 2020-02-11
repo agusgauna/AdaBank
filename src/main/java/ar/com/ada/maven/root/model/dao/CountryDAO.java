@@ -2,8 +2,6 @@ package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
 import ar.com.ada.maven.root.model.dto.Country;
-import sun.security.pkcs11.Secmod;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,17 +1,17 @@
 package ar.com.ada.maven.root.model.dto;
 
 public class Account {
-    private int id;
+    private Integer id;
     private String currency;
-    private int number;
-    private double balance;
+    private Integer number;
+    private Double balance;
     private Client client;
     private Account_type account_type;
     private Branch branch;
 
     public Account() { }
 
-    public Account(int id, String currency, int number, double balance, Client client, Account_type account_type, Branch branch) {
+    public Account(Integer id, String currency, Integer number, Double balance, Client client, Account_type account_type, Branch branch) {
         this.id = id;
         this.currency = currency;
         this.number = number;
@@ -21,11 +21,11 @@ public class Account {
         this.branch = branch;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,19 +37,19 @@ public class Account {
         this.currency = currency;
     }
 
-    public int getNumber() {
+    public Integer getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
     }
 

@@ -34,7 +34,7 @@ public class AccountDAO implements DAO<Account> {
                 Client client = clientDAO.findById(rs.getInt("client_id"));
                 Account_type account_type = account_typeDAO.findById(rs.getInt("account_type_id"));
                 Branch branch = branchDAO.findById(rs.getInt("branch_id"));
-                Account account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("accountNumber"), rs.getInt("balance"), client, account_type, branch);
+                Account account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("accountNumber"), rs.getDouble("balance"), rs.getString("controlNumber"), client, account_type, branch);
                 accounts.add(account);
             }
         } catch (SQLException e) {
@@ -57,7 +57,7 @@ public class AccountDAO implements DAO<Account> {
                 Client cliente = clientDAO.findById(rs.getInt("client_id"));
                 Account_type account_type = account_typeDAO.findById(rs.getInt("account_type"));
                 Branch branch = branchDAO.findById(rs.getInt("branch_id"));
-                account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("accountNumber"), rs.getDouble("balance"), cliente, account_type, branch);
+                account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("accountNumber"), rs.getDouble("balance"), rs.getString("controlNumber"), cliente, account_type, branch);
                 if (willCloseConnection) ;
                 connection.close();
             }
@@ -70,7 +70,7 @@ public class AccountDAO implements DAO<Account> {
 
     @Override
     public Boolean save(Account account) {
-        String sql = "INSERT INTO Account (id, currency, accountNumber, balance, client) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Account (id, currency, accountNumber, balance, controlNumber, client) VALUES (?, ?, ?, ?, ?, ?)";
         int hasSave = 0;
         try{
             Connection connection = DBConection.getConnection();
@@ -79,7 +79,8 @@ public class AccountDAO implements DAO<Account> {
             preparedStatement.setString(2, account.getCurrency());
             preparedStatement.setInt(3, account.getNumber());
             preparedStatement.setDouble(4, account.getBalance());
-            preparedStatement.setInt(5, account.getClient().getId());
+            preparedStatement.setString(5, account.getControlNumber());
+            preparedStatement.setInt(6, account.getClient().getId());
             hasSave = preparedStatement.executeUpdate();
             connection.close();
 
@@ -137,7 +138,7 @@ public class AccountDAO implements DAO<Account> {
                 Account_type account_type = account_typeDAO.findById(rs.getInt("account_type"));
                 Branch branch = branchDAO.findById(rs.getInt("branch_id"));
                 Account account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("number"),
-                        rs.getDouble("balance"), cliente, account_type, branch);
+                        rs.getDouble("balance"), rs.getString("controlNumber"), cliente, account_type, branch);
                 cuentas.add(account);
             }
             connection.close();

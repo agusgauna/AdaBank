@@ -147,6 +147,31 @@ public class AccountDAO implements DAO<Account> {
         }
         return cuentas;
     }
+
+    public Account getLastAccount( Account account){
+        String sql = "SELECT * FROM Account LIMIT 1 ORDER BY DESC";
+        List<Account> cuentas = new ArrayList<>();
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                        ResultSet rs = preparedStatement.executeQuery();
+
+            while (rs.next()) {
+                Client cliente = clientDAO.findById(rs.getInt("client_id"));
+                Account_type account_type = account_typeDAO.findById(rs.getInt("account_type"));
+                Branch branch = branchDAO.findById(rs.getInt("branch_id"));
+                Account account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("number"),
+                        rs.getDouble("balance"), cliente, account_type, branch);
+                cuentas.add(account);
+            }
+            connection.close();
+        } catch(SQLException e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
+        return cuentas;
+    }
+
+    }
+
 
 

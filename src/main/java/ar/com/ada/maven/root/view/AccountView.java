@@ -52,6 +52,13 @@ public class AccountView {
         }
 
 
+        // iban+cod bco + cod suc + cod control + cod cuenta
+        public void createNumberAccount(){
+
+
+        }
+
+
 
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");

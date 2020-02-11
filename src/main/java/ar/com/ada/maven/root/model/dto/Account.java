@@ -5,17 +5,19 @@ public class Account {
     private String currency;
     private Integer number;
     private Double balance;
+    private String controlNumber;
     private Client client;
     private Account_type account_type;
     private Branch branch;
 
     public Account() { }
 
-    public Account(Integer id, String currency, Integer number, Double balance, Client client, Account_type account_type, Branch branch) {
+    public Account(Integer id, String currency, Integer number, Double balance, String controlNumber, Client client, Account_type account_type, Branch branch) {
         this.id = id;
         this.currency = currency;
         this.number = number;
         this.balance = balance;
+        this.controlNumber = controlNumber;
         this.client = client;
         this.account_type = account_type;
         this.branch = branch;
@@ -53,6 +55,14 @@ public class Account {
         this.balance = balance;
     }
 
+    public String getControlNumber() {
+        return controlNumber;
+    }
+
+    public void setControlNumber(String controlNumber) {
+        this.controlNumber = controlNumber;
+    }
+
     public Client getClient() {
         return client;
     }
@@ -83,6 +93,7 @@ public class Account {
                 ". La moneda de la cuenta es: " + currency +
                 ". El nro de cuenta es: " + number +
                 ". El saldo es: " + balance +
+                ". El número de control es: " +controlNumber+
                 ". El cliente es: " + client +
                 ". El tipo de cuenta es: " + account_type +
                 ". La sucursal es: " + branch;

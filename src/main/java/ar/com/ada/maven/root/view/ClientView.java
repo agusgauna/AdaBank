@@ -62,4 +62,7 @@ public class ClientView {
         Singletone.pressEnterKeyToContinue();
     }
 
+    public void clientAlreadyExists(Integer doc) {
+        System.out.println("");
+    }
 }

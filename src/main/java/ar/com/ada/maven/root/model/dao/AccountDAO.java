@@ -160,15 +160,15 @@ public class AccountDAO implements DAO<Account> {
                 Client cliente = clientDAO.findById(rs.getInt("client_id"));
                 Account_type account_type = account_typeDAO.findById(rs.getInt("account_type"));
                 Branch branch = branchDAO.findById(rs.getInt("branch_id"));
-                Account account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("number"),
-                        rs.getDouble("balance"), cliente, account_type, branch);
+                account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getInt("number"),
+                        rs.getDouble("balance"), rs.getString("controlNumber"), cliente, account_type, branch);
                 cuentas.add(account);
             }
             connection.close();
         } catch(SQLException e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
-        return cuentas;
+        return (Account) cuentas;
     }
 
     }

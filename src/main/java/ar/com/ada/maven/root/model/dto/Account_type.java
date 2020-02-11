@@ -1,23 +1,23 @@
 package ar.com.ada.maven.root.model.dto;
 
 public class Account_type {
-    private int id;
+    private Integer id;
     private String name;
     private Integer code_control;
 
     public Account_type() { }
 
-    public Account_type(int id, String name, Integer code_control) {
+    public Account_type(Integer id, String name, Integer code_control) {
         this.id = id;
         this.name = name;
         this.code_control = code_control;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -40,7 +40,7 @@ public class Account_type {
     @Override
     public String toString() {
         return "El id es: " + id +
-                ". El nombre es: " + name + '\'' +
+                ". El nombre es: " + name +
                 ". El codigo de control es: " + code_control;
     }
 }

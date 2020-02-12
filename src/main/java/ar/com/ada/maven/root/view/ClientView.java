@@ -2,7 +2,6 @@ package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.Singletone;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -63,6 +62,9 @@ public class ClientView {
     }
 
     public void clientAlreadyExists(Integer doc) {
-        System.out.println("");
+        System.out.println("El cliente ya existe en la base de datos");
+        Singletone.pressEnterKeyToContinue();
     }
+
+
 }

@@ -6,13 +6,11 @@ import ar.com.ada.maven.root.model.dto.Movement_type;
 import ar.com.ada.maven.root.utils.Singletone;
 
 import java.util.Date;
-import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 public class MovementView {
 
-    public void printAllMovement(final List<Movement> movementList) {
+    public void printAllMovement(List<Movement> movementList) {
 
         System.out.printf(" El listado de Movimientos");
 
@@ -29,27 +27,22 @@ public class MovementView {
         });
     }
 
-    public String printNewTypeMovement(Movement_type newTypeMovement ){
-        System.out.println("Selecione la operacion que desea realizar");
-        System.out.println("1. Debito");
-        System.out.println("2. Credito");
-        System.out.println("3. Salir");
+    public Integer printMenuTypeMovement(Movement_type newTypeMovement) {
+        System.out.println("Seleccione la operación que desea realizar");
+        System.out.println("| 1 | Debito");
+        System.out.println("| 2 | Credito");
+        System.out.println("| 3 | Salir");
 
-        Scanner keyboard = Singletone.getInstance();
-                while (true) {
-                    try {
-                        System.out.println("?");
-                        String choice = keyboard.next(toString());
-                        return choice;
-                    } catch (InputMismatchException e) {
-                        System.out.println("Es valida la eleccion");
-                        keyboard.next();
-                    }
-            }
-        }
+        //Este metodo sirve para que capture y valide la entrada de datos del usuario en formato numerico
+        String option = Singletone.getInputInteger();
+        // y en return convierte string numerico a entero(Integer)
+        return Integer.valueOf(option);
 
-    public void showNewMovement(Movement_type newMovement) {
-        System.out.println("Se agrega un nuevo movement");
     }
 
+    public void showNewMovement(Movement newMovement) {
+        System.out.println("Se agrega un nuevo movimiento");
+        System.out.println(newMovement.getId() + " " + newMovement.getAmount() + " " + newMovement.getDate().toString() + " "
+                + newMovement.getDescription() + " " + newMovement.getMovement_type());
+    }
 }

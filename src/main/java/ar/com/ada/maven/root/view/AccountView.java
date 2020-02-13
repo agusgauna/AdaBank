@@ -58,6 +58,11 @@ public class AccountView {
         Singletone.pressEnterKeyToContinue();
     }
 
+    public void accountAlreadyExist(Integer number){
+        System.out.println("Este número de cuenta ya existe en la base de datos");
+        Singletone.pressEnterKeyToContinue();
+    }
+
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
     }

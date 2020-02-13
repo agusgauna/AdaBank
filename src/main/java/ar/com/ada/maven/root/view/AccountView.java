@@ -53,6 +53,11 @@ public class AccountView {
 
 
 
+    public void showNewAccount(Account account){
+        System.out.println("Su número de cuenta corriente es: " + account.getNumber());
+        Singletone.pressEnterKeyToContinue();
+    }
+
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
     }

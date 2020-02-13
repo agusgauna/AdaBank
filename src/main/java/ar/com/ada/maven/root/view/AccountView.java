@@ -15,9 +15,8 @@ public class AccountView {
         System.out.println("*** Bienvenido al menú Cuentas*** \n \t Seleccione una opción: \n" +
                 "1) Lista \n " +
                 "2) Agregar \n " +
-                "3) Editar \n " +
-                "4) Eliminar \n " +
-                "5) Salir ");
+                "3) Eliminar \n " +
+                "4) Salir ");
 
         Scanner keyboard = Singletone.getInstance();
 

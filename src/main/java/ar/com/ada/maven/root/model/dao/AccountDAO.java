@@ -177,8 +177,4 @@ public class AccountDAO implements DAO<Account> {
         }
         return account;
     }
-
 }
-
-
-

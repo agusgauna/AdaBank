@@ -6,15 +6,15 @@ public class Branch {
     private Integer id;
     private String name;
     private Integer code;
-    private Bank bankId;
+    private Bank bank;
 
     public Branch() { }
 
-    public Branch(Integer id, String name, Integer code, Bank bankId) {
+    public Branch(Integer id, String name, Integer code, Bank bank) {
         this.id = id;
         this.name = name;
         this.code = code;
-        this.bankId = bankId;
+        this.bank = bank;
     }
 
     public Integer getId() {
@@ -41,12 +41,12 @@ public class Branch {
         this.code = code;
     }
 
-    public Bank getBankId() {
-        return bankId;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setBankId(Bank bankId) {
-        this.bankId = bankId;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     @Override
@@ -54,6 +54,6 @@ public class Branch {
         return "El id es: " + id +
                 ". El nombre de la sucursal es: " + name +
                 ". El codigo de la sucursal es: " + code +
-                ". El banco es: " + bankId;
+                ". El banco es: " + bank;
     }
 }

@@ -1,9 +1,6 @@
 package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Account;
-import ar.com.ada.maven.root.model.dto.Bank;
-import ar.com.ada.maven.root.model.dto.Client;
-import ar.com.ada.maven.root.model.dto.Country;
 import ar.com.ada.maven.root.utils.Singletone;
 
 import java.util.HashMap;
@@ -70,6 +67,8 @@ public class AccountView {
     }
 
     public void showNewAccount(Account account) {
+        String iban = account.getBranch().getBank().getCountry().getCode();
+
         System.out.println("Su número de cuenta es :" + );
         Singletone.pressEnterKeyToContinue();
 

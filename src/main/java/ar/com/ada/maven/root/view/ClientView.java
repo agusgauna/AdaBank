@@ -1,6 +1,8 @@
 package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Client;
+import ar.com.ada.maven.root.utils.Ansi;
+import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.utils.Singletone;
 
 import java.util.HashMap;
@@ -68,14 +70,12 @@ public class ClientView {
         Singletone.pressEnterKeyToContinue();
     }
     public void showNewClient(String lastName, String name) {
-        System.out.println(Ansi.GREEN);
         System.out.println("El cliente " + lastName + ", " +name+ " se ha creado exitosamente");
-        System.out.println(Ansi.RESET);
         Singletone.pressEnterKeyToContinue();
     }
 
     public void updateClientCanceled() {
-        System.out.println("Ha cancelado la actualizacion del Cliente\n");
+        System.out.println("Ha cancelado la actualizacion del Cliente");
         Singletone.pressEnterKeyToContinue();
     }
 
@@ -86,10 +86,10 @@ public class ClientView {
 
     public String getNameToUpdate(Client client) {
         System.out.print("Se actualizará el nombre del siguiente cliente: ");
-        System.out.println(Ansi.PURPLE + client.getId() + " " + client.getName() + " " + client.getLastName()+ " DNI: " + client.getDoc() + Ansi.RESET);
+        System.out.println( + client.getId() + " " + client.getName() + " " + client.getLastName()+ " DNI: " + client.getDoc() + Ansi.RESET);
 
         System.out.print("Ingrese el nuevo nombre del cliente para actualizar ");
-        System.out.println("(para cancelar, no ingresar datos y presionar enter):\n");
+        System.out.println("(para cancelar, no ingresar datos y presionar enter)");
 
         scanner.nextLine();
 
@@ -136,7 +136,7 @@ public class ClientView {
                 actionOption = "elegir";
                 break;
         }
-        System.out.println("Ingrese el numero de ID del cliente para " + actionOption + " ó 0 para cancelar: \n");
+        System.out.println("Ingrese el numero de ID del cliente para " + actionOption + " ó 0 para cancelar: ");
 
         while (true) {
             try {
@@ -152,7 +152,7 @@ public class ClientView {
 
     public Boolean getResponseToDelete(Client client) {
         System.out.print("Se Eliminará el siguiente cliente: ");
-        System.out.println(Ansi.PURPLE + client.getId() + " " + client.getLastName() + ", " + client.getName() + Ansi.RESET);
+        System.out.println( + client.getId() + " " + client.getLastName() + ", " + client.getName());
 
 
         System.out.println("Esta seguro que desea eliminarlo? ");

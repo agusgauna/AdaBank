@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ClientView {
+    private Scanner scanner = Singletone.getInstance();
+
     public int clientMenuSelectOption() {
         System.out.println("Ud ha ingresado al menú Cliente");
         System.out.println("Las opciones disponibles son: 1.Listar 2. Agregar 3.Editar 4.Eliminar 5. Salir ");
@@ -52,7 +54,7 @@ public class ClientView {
         return data;
     }
     public void showNewClient(Client client) {
-        System.out.println("El cliente nuevo es: " +client.getLastName()+ ", " +client.getName());
+        System.out.println("El cliente nuevo es: " +client.getLastName()+ ", " +client.getName()+ ". El DNI es: " +client.getDoc());
         Singletone.pressEnterKeyToContinue();
     }
 
@@ -65,6 +67,124 @@ public class ClientView {
         System.out.println("El cliente ya existe en la base de datos");
         Singletone.pressEnterKeyToContinue();
     }
+    public void showNewClient(String lastName, String name) {
+        System.out.println(Ansi.GREEN);
+        System.out.println("El cliente " + lastName + ", " +name+ " se ha creado exitosamente");
+        System.out.println(Ansi.RESET);
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public void updateClientCanceled() {
+        System.out.println("Ha cancelado la actualizacion del Cliente\n");
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public void clientNotExist(int id) {
+        System.out.println("No existe un cliente con el id " + id + " asociado");
+        System.out.println("Selecciones un ID valido o 0 para cancelar");
+    }
+
+    public String getNameToUpdate(Client client) {
+        System.out.print("Se actualizará el nombre del siguiente cliente: ");
+        System.out.println(Ansi.PURPLE + client.getId() + " " + client.getName() + " " + client.getLastName()+ " DNI: " + client.getDoc() + Ansi.RESET);
+
+        System.out.print("Ingrese el nuevo nombre del cliente para actualizar ");
+        System.out.println("(para cancelar, no ingresar datos y presionar enter):\n");
+
+        scanner.nextLine();
+
+        while (true) {
+            try {
+                System.out.print("? ");
+                String name = scanner.nextLine().trim();
+                while (!name.matches("^[A-Za-záéíóúüÁÉÍÓÚÜ\\s]+$") && !name.isEmpty()) {
+                    MainView.invalidData();
+                    name = scanner.nextLine();
+                }
+                return name;
+            } catch (InputMismatchException e) {
+                MainView.invalidData();
+                scanner.next();
+            }
+        }
+    }
+
+    public static void selectClientIdToEdithOrDeleteInfo(String actions) {
+        System.out.println("De la siguiente lista de clientes, seleccione el id para  " + actions);
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public static void selectClientIdToEdithInfo(String actions) {
+        System.out.println("De la siguiente lista de clientes, seleccione el id para  " + actions);
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public void showUpdateClient(Client client) {
+        System.out.println("El cliente " + client.getLastName() + ", " + client.getName() + ". DNI: " +client.getDoc()+ "se ha actualizado exitosamente");
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public int clientIdSelected(String actionOption) {
+        switch (actionOption) {
+            case Paginator.EDITH:
+                actionOption = "editar";
+                break;
+            case Paginator.DELETE:
+                actionOption = "eliminar";
+                break;
+            case Paginator.SELECT:
+                actionOption = "elegir";
+                break;
+        }
+        System.out.println("Ingrese el numero de ID del cliente para " + actionOption + " ó 0 para cancelar: \n");
+
+        while (true) {
+            try {
+                System.out.print("? ");
+                int choice = scanner.nextInt();
+                return choice;
+            } catch (InputMismatchException e) {
+                System.out.println("Error, debe ingresar un id valido");
+                scanner.next();
+            }
+        }
+    }
+
+    public Boolean getResponseToDelete(Client client) {
+        System.out.print("Se Eliminará el siguiente cliente: ");
+        System.out.println(Ansi.PURPLE + client.getId() + " " + client.getLastName() + ", " + client.getName() + Ansi.RESET);
 
 
+        System.out.println("Esta seguro que desea eliminarlo? ");
+        System.out.println("| 1 | Si");
+        System.out.println("| 2 | No");
+
+        scanner.nextLine();
+
+        while (true) {
+            try {
+                System.out.print("? ");
+                String name = scanner.nextLine().trim();
+                while (!name.matches("^[1-2]+$") && !name.isEmpty()) {
+                    System.out.println("Error, debe ingresar una opcion valida");
+                    name = scanner.nextLine();
+                }
+                return "1".equals(name);
+            } catch (InputMismatchException e) {
+                System.out.println("Error, debe ingresar una opcion valida");
+                scanner.next();
+            }
+        }
+    }
+
+    public void showDeleteClient(String lastName, String name) {
+        System.out.println("El cliente " + lastName + ", " +name+ " se ha eliminado exitosamente");
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public void deleteClientCanceled() {
+        System.out.println("Ha cancelado la eliminacion del Cliente");
+        Singletone.pressEnterKeyToContinue();
+    }
+}
 }

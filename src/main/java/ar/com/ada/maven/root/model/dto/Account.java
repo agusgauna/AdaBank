@@ -7,12 +7,12 @@ public class Account {
     private Double balance;
     private String controlNumber;
     private Client client;
-    private Account_type account_type;
+    private AccountType account_type;
     private Branch branch;
 
     public Account() { }
 
-    public Account(Integer id, String currency, Integer number, Double balance, String controlNumber, Client client, Account_type account_type, Branch branch) {
+    public Account(Integer id, String currency, Integer number, Double balance, String controlNumber, Client client, AccountType account_type, Branch branch) {
         this.id = id;
         this.currency = currency;
         this.number = number;
@@ -71,11 +71,11 @@ public class Account {
         this.client = client;
     }
 
-    public Account_type getAccount_type() {
+    public AccountType getAccount_type() {
         return account_type;
     }
 
-    public void setAccount_type(Account_type account_type) {
+    public void setAccount_type(AccountType account_type) {
         this.account_type = account_type;
     }
 

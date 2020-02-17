@@ -1,6 +1,9 @@
 package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Account;
+import ar.com.ada.maven.root.model.dto.Bank;
+import ar.com.ada.maven.root.model.dto.Client;
+import ar.com.ada.maven.root.model.dto.Country;
 import ar.com.ada.maven.root.utils.Singletone;
 
 import java.util.HashMap;
@@ -58,10 +61,22 @@ public class AccountView {
         }
 
 
-
+    public void AccountAlreadyExists(Integer doc) {
+        System.out.println("La cuenta ya existe en base de datos");
+        Singletone.pressEnterKeyToContinue();
+    }
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
     }
+
+    public void showNewAccount(Account account) {
+        System.out.println("Su número de cuenta es :" + );
+        Singletone.pressEnterKeyToContinue();
+
+        // iban+ cod banco + cod suc + cod control(tipo de cuenta)+control number (lastaccount.getCN+ 1)
+    }
+
+
 }
 
 

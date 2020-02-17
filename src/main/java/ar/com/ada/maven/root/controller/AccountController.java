@@ -49,6 +49,19 @@ public class AccountController {
             Integer doc = Integer.valueOf(dataAccount.get("doc"));
 
             Account newAccount = new Account(dataAccount);
+            Account byId = accountDAO.findById(dataAccount);
+
+            if (byId != null && byId.getId().equals(newAccount.getId())) {
+                view.AccountAlreadyExists(newAccount.getId());
+            } else {
+                Boolean resultado = accountDAO.save(newAccount);
+                if (resultado)
+                    view.showNewAccount(newAccount.getNumber());
+            }
+        } else {
+            view.newAccountCanceled();
+        }
+    }
 
         }
     }

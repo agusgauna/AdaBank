@@ -42,26 +42,15 @@ public class AccountController {
         view.printAllAccounts(cuentas);
     }
 
-    public static void createNewAccount(){
 
-        HashMap <String, String> dataAccount = view.insertNewAccount();
-        if(!dataAccount.isEmpty()){
-            Integer doc = Integer.valueOf(dataAccount.get("doc"));
+    public static void createNewAccount(Account account){
+ 
 
-            Account newAccount = new Account(dataAccount);
-            Account byId = accountDAO.findById(dataAccount);
-
-            if (byId != null && byId.getId().equals(newAccount.getId())) {
-                view.AccountAlreadyExists(newAccount.getId());
-            } else {
-                Boolean resultado = accountDAO.save(newAccount);
-                if (resultado)
-                    view.showNewAccount(newAccount.getNumber());
-            }
-        } else {
-            view.newAccountCanceled();
-        }
-    }
+        String iban = account.getBranch().getBank().getCountry().getCode();
+        Integer code = account.getBranch().getBank().getCode();
+        Integer codeBranch = account.getBranch().getCode();
+        Integer codeControl = account.getAccount_type().getCode_control();
+        account.getNumber();
 
         }
     }

@@ -45,14 +45,18 @@ public class AccountController {
 
     public static void createNewAccount(Account account){
  
+        Account newAccount = new Account();
+        if(newAccount != null){
 
-        String iban = account.getBranch().getBank().getCountry().getCode();
+         String iban = account.getBranch().getBank().getCountry().getCode();
         Integer code = account.getBranch().getBank().getCode();
         Integer codeBranch = account.getBranch().getCode();
         Integer codeControl = account.getAccount_type().getCode_control();
         account.getNumber();
 
         }
+
+
     }
 
 }

@@ -67,12 +67,11 @@ public class AccountView {
     }
 
     public void showNewAccount(Account account) {
-        String iban = account.getBranch().getBank().getCountry().getCode();
 
-        System.out.println("Su número de cuenta es :" + );
+        System.out.println("Su número de cuenta es :" + account.getNumber() );
         Singletone.pressEnterKeyToContinue();
 
-        // iban+ cod banco + cod suc + cod control(tipo de cuenta)+control number (lastaccount.getCN+ 1)
+
     }
 
 

@@ -4,15 +4,15 @@ public class Bank {
 
     private Integer id;
     private String name;
-    private Integer iban;
+    private Integer code;
     private Country country;
 
     public Bank() { }
 
-    public Bank(Integer id, String name, Integer iban, Country country) {
+    public Bank(Integer id, String name, Integer code, Country country) {
         this.id = id;
         this.name = name;
-        this.iban = iban;
+        this.code = code;
         this.country = country;
     }
 
@@ -32,12 +32,12 @@ public class Bank {
         this.name = name;
     }
 
-    public Integer getIban() {
-        return iban;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setIban(Integer iban) {
-        this.iban = iban;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public Country getCountry() {
@@ -52,7 +52,7 @@ public class Bank {
     public String toString() {
         return "El id es: " + id +
                 ". El nombre del banco es: " + name +
-                ". El codigo iban es: " + iban +
+                ". El codigo iban es: " + code +
                 ". El pais del banco es: " + country;
     }
 }

@@ -69,10 +69,6 @@ public class ClientView {
         System.out.println("El cliente ya existe en la base de datos");
         Singletone.pressEnterKeyToContinue();
     }
-    public void showNewClient(String lastName, String name) {
-        System.out.println("El cliente " + lastName + ", " +name+ " se ha creado exitosamente");
-        Singletone.pressEnterKeyToContinue();
-    }
 
     public void updateClientCanceled() {
         System.out.println("Ha cancelado la actualizacion del Cliente");
@@ -110,11 +106,6 @@ public class ClientView {
     }
 
     public static void selectClientIdToEdithOrDeleteInfo(String actions) {
-        System.out.println("De la siguiente lista de clientes, seleccione el id para  " + actions);
-        Singletone.pressEnterKeyToContinue();
-    }
-
-    public static void selectClientIdToEdithInfo(String actions) {
         System.out.println("De la siguiente lista de clientes, seleccione el id para  " + actions);
         Singletone.pressEnterKeyToContinue();
     }
@@ -187,4 +178,4 @@ public class ClientView {
         Singletone.pressEnterKeyToContinue();
     }
 }
-}
+

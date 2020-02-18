@@ -68,7 +68,7 @@ public class ClientController {
             view.newClientCanceled();
         }
     }
-    private static int listCountriesPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
+    private static int listClientsPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
         int limit = 4, currentPage = 0, totalClients, totalPages, clientIdSelected = 0;
         List<Client> clients;
         List<String> paginator;
@@ -129,9 +129,8 @@ public class ClientController {
             if (nameToUpdate.isEmpty()) {
                 view.updateClientCanceled();
             } else {
-                Client clientToUpdate = getClientToUpdate(clientToEdith);
 
-                clientToEdith.setDoc(docToUpdate);
+                clientToEdith.setName(nameToUpdate);
 
                 Boolean isUpdate = clientDAO.update(clientToEdith);
 
@@ -170,32 +169,6 @@ public class ClientController {
         return clientToEdithOrDelete;
     }
 
-    private static Client getClientToUpdate(Client clientToEdith) {
-        boolean hasExitWhile = false;
-        Client clientById = null;
-
-        view.selectClientIdToEdithInfo("Actualizar");
-
-        int clientIdSelected = ClientController.clientListPerPage(Paginator.SELECT, false);
-
-        if (clientIdSelected != 0) {
-            while (!hasExitWhile) {
-                clientById = clientDAO.findById(clientIdSelected);
-                if (clientById == null) {
-                    view.clientNotExist(clientIdSelected);
-                    clientIdSelected = view.clientIdSelected(Paginator.SELECT);
-                    hasExitWhile = (clientIdSelected == 0);
-                } else {
-                    hasExitWhile = true;
-                }
-            }
-        }
-
-        return clientById != null && !clientToEdith.getClient().equals(clientById) ?
-                clientByIdById :
-                clientToEdith.getClient();
-    }
-
     private static void deleteClient() {
         Client clientToDelete = getClientToEdithOrDelete(Paginator.DELETE);
 
@@ -205,7 +178,7 @@ public class ClientController {
                 Boolean isDeleted = clientDAO.delete(clientToDelete.getId());
 
                 if (isDeleted)
-                    view.showDeleteClient(clientToDelete.getName());
+                    view.showDeleteClient(clientToDelete.getLastName(), clientToDelete.getName());
             }
 
         } else {
@@ -213,4 +186,4 @@ public class ClientController {
         }
     }
 }
-}
+

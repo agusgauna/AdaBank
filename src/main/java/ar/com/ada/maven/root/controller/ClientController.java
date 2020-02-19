@@ -68,6 +68,14 @@ public class ClientController {
             view.newClientCanceled();
         }
     }
+    private static void edithClient() {
+        int clientIdToEdith = listClientsPerPage(Paginator.EDITH, true);
+        if (clientIdToEdith != 0)
+            editSelectedClient(clientIdToEdith);
+        else
+            view.updateClientCanceled();
+    }
+
     private static int listClientsPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
         int limit = 4, currentPage = 0, totalClients, totalPages, clientIdSelected = 0;
         List<Client> clients;
@@ -80,7 +88,7 @@ public class ClientController {
             paginator = Paginator.buildPaginator(currentPage, totalPages);
 
             clients = clientDAO.findAll(limit, currentPage * limit);
-            String choice = view.printAllClient( List<Client> clients);
+            String choice = view.printClientsPerPage(clients, paginator, optionSelectEdithOrDelete, showHeader);
 
             switch (choice) {
                 case "i":
@@ -120,26 +128,29 @@ public class ClientController {
         return clientIdSelected;
     }
 
-    private static void edithClient() {
-        Client clientToEdith = getClientToEdithOrDelete(Paginator.EDITH);
+    private static void editSelectedClient(int id) {
+        Client clientById = clientDAO.findById(id);
+        if (clientById != null) {
+            String nameToUpdate = view.getNameToUpdate(clientById);
+            String lastName = view.getNameToUpdate(clientById);
+            if (!nameToUpdate.isEmpty()) {
+                clientDAO.findByName(nameToUpdate, lastName);
+                clientById.setName(nameToUpdate);
+                clientById.setLastName(nameToUpdate);
 
-        if (clientToEdith != null) {
-            String nameToUpdate = view.getNameToUpdate(clientToEdith);
+                Boolean isSaved = clientDAO.update(clientById, id);
 
-            if (nameToUpdate.isEmpty()) {
+                if (isSaved)
+                    view.showUpdateClient(clientById);
+            } else
                 view.updateClientCanceled();
-            } else {
-
-                clientToEdith.setName(nameToUpdate);
-
-                Boolean isUpdate = clientDAO.update(clientToEdith);
-
-                if (isUpdate)
-                    view.showUpdateClient(clientToEdith);
-            }
-
         } else {
-            view.updateClientCanceled();
+            view.clientNotExist(id);
+            int clientIdSelected = view.clientIdSelected("Editar");
+            if (clientIdSelected != 0)
+                editSelectedClient(clientIdSelected);
+            else
+                view.updateClientCanceled();
         }
     }
 

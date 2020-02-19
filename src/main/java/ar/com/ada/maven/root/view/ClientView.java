@@ -2,6 +2,7 @@ package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.Ansi;
+import ar.com.ada.maven.root.utils.CommandLineTable;
 import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.utils.Singletone;
 
@@ -38,6 +39,44 @@ public class ClientView {
             System.out.println("El id es: " + id + ". El nombre es: " + name+ ". El apellido es: " +lastName+ ". El tipo de documento es: " + typeDoc+ ". El documento es:" + dni);
         });
     }
+    public String printClientsPerPage(List<Client> clients, List<String> paginator, String optionEdithOrDelete, boolean showHeader) {
+        if (showHeader) {
+            System.out.println("La lista de clientes es: ");
+        }
+
+        CommandLineTable st = new CommandLineTable();
+        st.setShowVerticalLines(true);
+
+        st.setHeaders("ID", "NOMBRE", "APELLIDO");
+        clients.forEach(client ->
+                st.addRow(client.getId().toString(), client.getName(), client.getLastName())
+        );
+        st.print();
+
+        if (optionEdithOrDelete != null && !optionEdithOrDelete.isEmpty())
+            paginator.set(paginator.size() - 2, optionEdithOrDelete);
+
+        System.out.println("\n+----------------------------------------------------------------+");
+        paginator.forEach(page -> System.out.print(page + " "));
+        System.out.println("\n+----------------------------------------------------------------+\n");
+
+        while (true) {
+            try {
+                System.out.print("? ");
+                String name = scanner.nextLine().trim();
+                while (!name.matches("^[0-9IiAaSsUuEeqQ]+$") && !name.isEmpty()) {
+                    MainView.invalidData();
+                    System.out.print("? ");
+                    name = scanner.nextLine();
+                }
+                return name;
+            } catch (InputMismatchException e) {
+                MainView.invalidData();
+                scanner.next();
+            }
+        }
+    }
+
 
     public HashMap<String, String> getNameNewClient() {
         Scanner scanner = Singletone.getInstance();
@@ -82,7 +121,7 @@ public class ClientView {
 
     public String getNameToUpdate(Client client) {
         System.out.print("Se actualizará el nombre del siguiente cliente: ");
-        System.out.println( + client.getId() + " " + client.getName() + " " + client.getLastName()+ " DNI: " + client.getDoc() + Ansi.RESET);
+        System.out.println( client.getName() + " " + client.getLastName()+ " ");
 
         System.out.print("Ingrese el nuevo nombre del cliente para actualizar ");
         System.out.println("(para cancelar, no ingresar datos y presionar enter)");

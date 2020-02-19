@@ -163,4 +163,24 @@ public class ClientDAO implements DAO<Client> {
 
         return total;
     }
+    public Client findByName(String name, String lastName) {
+        String sql = "SELECT * FROM Continent WHERE nombre = ? y apellido = ?";
+        Client client = null;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next())
+                client = new Client(rs.getString("name"), rs.getString("lastName"));
+
+            if (willCloseConnection)
+                connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+
+        return client;
+    }
 }

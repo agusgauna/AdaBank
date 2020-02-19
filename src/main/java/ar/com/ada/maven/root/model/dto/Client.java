@@ -10,6 +10,11 @@ public class Client {
 
     public Client() { }
 
+    public Client(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
+
     public Client(String name, String lastName, String type_doc, Integer doc) {
         this.name = name;
         this.lastName = lastName;

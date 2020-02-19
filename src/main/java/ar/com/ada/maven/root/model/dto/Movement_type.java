@@ -1,7 +1,5 @@
 package ar.com.ada.maven.root.model.dto;
 
-import java.util.Objects;
-
 public class Movement_type {
     private Integer id;
     private String debit;

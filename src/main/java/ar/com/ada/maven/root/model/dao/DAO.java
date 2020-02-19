@@ -6,9 +6,6 @@ import java.util.Collection;
 
 public interface DAO<T> {
 
-     // CountryDAO findById(String id);
-
-
     Collection<T> findAll();
 
     T findById(Integer id);

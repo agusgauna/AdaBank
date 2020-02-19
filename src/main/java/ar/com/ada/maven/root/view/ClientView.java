@@ -16,7 +16,12 @@ public class ClientView {
 
     public int clientMenuSelectOption() {
         System.out.println("Ud ha ingresado al menú Cliente");
-        System.out.println("Las opciones disponibles son: 1.Listar 2. Agregar 3.Editar 4.Eliminar 5. Salir ");
+        System.out.println("Las opciones disponibles son: ");
+        System.out.println("| 1 | Listar");
+        System.out.println("| 2 | Agregar");
+        System.out.println("| 3 | Editar");
+        System.out.println("| 4 | Eliminar");
+        System.out.println("| 5 | Salir");
         Scanner scanner = Singletone.getInstance();
         while (true) {
             try {

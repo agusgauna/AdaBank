@@ -1,7 +1,6 @@
 package ar.com.ada.maven.root.model.dao;
 
 import ar.com.ada.maven.root.model.DBConection;
-import ar.com.ada.maven.root.model.dto.Account;
 import ar.com.ada.maven.root.model.dto.Bank;
 import ar.com.ada.maven.root.model.dto.Country;
 
@@ -71,7 +70,7 @@ public class BankDAO implements DAO<Bank> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, bank.getId());
             preparedStatement.setString(2, bank.getName());
-            preparedStatement.setInt(3, bank.getIban());
+            preparedStatement.setInt(3, bank.getCode());
             hasSave = preparedStatement.executeUpdate();
             connection.close();
 

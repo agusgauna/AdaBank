@@ -1,13 +1,13 @@
 package ar.com.ada.maven.root.model.dto;
 
 public class Country {
-    public Integer id;
-    public String name;
-    public Integer code;
+    private Integer id;
+    private String name;
+    private String code;
 
     public Country() { }
 
-    public Country(Integer id, String name, Integer code) {
+    public Country(Integer id, String name, String code) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -29,11 +29,11 @@ public class Country {
         this.name = name;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

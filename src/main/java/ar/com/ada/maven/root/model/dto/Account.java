@@ -3,17 +3,40 @@ package ar.com.ada.maven.root.model.dto;
 public class Account {
     private Integer id;
     private String currency;
-    private Integer number;
+    private String number;
     private Double balance;
-    private String controlNumber;
+    private Integer controlNumber;
     private Client client;
-    private Account_type account_type;
+    private AccountType account_type;
     private Branch branch;
 
     public Account() { }
 
-    public Account(Integer id, String currency, Integer number, Double balance, String controlNumber, Client client, Account_type account_type, Branch branch) {
+    public Account(Integer id,
+                   String currency,
+                   String number, // AR01 3456 6543 76 1234567890
+                   Double balance,
+                   Integer controlNumber,
+                   Client client,
+                   AccountType account_type,
+                   Branch branch) {
         this.id = id;
+        this.currency = currency;
+        this.number = number;
+        this.balance = balance;
+        this.controlNumber = controlNumber;
+        this.client = client;
+        this.account_type = account_type;
+        this.branch = branch;
+    }
+
+    public Account(String currency,
+                   String number, // AR01 3456 6543 76 1234567890
+                   Double balance,
+                   Integer controlNumber,
+                   Client client,
+                   AccountType account_type,
+                   Branch branch) {
         this.currency = currency;
         this.number = number;
         this.balance = balance;
@@ -39,11 +62,11 @@ public class Account {
         this.currency = currency;
     }
 
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Integer number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -55,11 +78,11 @@ public class Account {
         this.balance = balance;
     }
 
-    public String getControlNumber() {
+    public Integer getControlNumber() {
         return controlNumber;
     }
 
-    public void setControlNumber(String controlNumber) {
+    public void setControlNumber(Integer controlNumber) {
         this.controlNumber = controlNumber;
     }
 
@@ -71,11 +94,11 @@ public class Account {
         this.client = client;
     }
 
-    public Account_type getAccount_type() {
+    public AccountType getAccount_type() {
         return account_type;
     }
 
-    public void setAccount_type(Account_type account_type) {
+    public void setAccount_type(AccountType account_type) {
         this.account_type = account_type;
     }
 

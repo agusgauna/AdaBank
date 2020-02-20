@@ -6,7 +6,6 @@ import ar.com.ada.maven.root.model.dto.AccountType;
 import ar.com.ada.maven.root.model.dto.Branch;
 import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.IbanGenerator;
-import ar.com.ada.maven.root.utils.Singletone;
 import ar.com.ada.maven.root.view.AccountView;
 import ar.com.ada.maven.root.view.MainView;
 
@@ -91,13 +90,14 @@ public class AccountController {
         Integer accountTypeCode =  accountType.getCode_control();
         Integer codigoCuentaCliente = newControlNumberAccount;
 
-       
+
 
         String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
 
 
         numberData.put("number", numberAccount);
-
+        numberData.put("control", String.valueOf(newControlNumberAccount));
+       
         return  numberData;
     }
 

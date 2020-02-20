@@ -57,15 +57,14 @@ public class ClientDAO implements DAO<Client> {
         return cliente;
     }
 
-    public Client findByName(String name, String lastName) {
-        String sql = "SELECT * FROM Client where name = ? AND lastname = ?";
+    public Client findByDoc(Integer doc) {
+        String sql = "SELECT * FROM Client where doc = ?";
         Client client = null;
 
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            preparedStatement.setString(2, lastName);
+            preparedStatement.setInt(1, doc);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
@@ -149,4 +148,39 @@ public class ClientDAO implements DAO<Client> {
         return clientes;
     }
 
+    public int getTotalClients() {
+        String sql = "SELECT COUNT(*) AS total FROM Client";
+        int total = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next())  total = rs.getInt("total");
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+
+        return total;
+    }
+    public Client findByName(String name, String lastName) {
+        String sql = "SELECT * FROM Continent WHERE nombre = ? y apellido = ?";
+        Client client = null;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next())
+                client = new Client(rs.getString("name"), rs.getString("lastName"));
+
+            if (willCloseConnection)
+                connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+
+        return client;
+    }
 }

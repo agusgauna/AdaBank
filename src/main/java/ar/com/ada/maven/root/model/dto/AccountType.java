@@ -1,13 +1,13 @@
 package ar.com.ada.maven.root.model.dto;
 
-public class Account_type {
+public class AccountType {
     private Integer id;
     private String name;
     private Integer code_control;
 
-    public Account_type() { }
+    public AccountType() { }
 
-    public Account_type(Integer id, String name, Integer code_control) {
+    public AccountType(Integer id, String name, Integer code_control) {
         this.id = id;
         this.name = name;
         this.code_control = code_control;

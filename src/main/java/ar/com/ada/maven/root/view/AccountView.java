@@ -15,9 +15,8 @@ public class AccountView {
         System.out.println("*** Bienvenido al menú Cuentas*** \n \t Seleccione una opción: \n" +
                 "1) Lista \n " +
                 "2) Agregar \n " +
-                "3) Editar \n " +
-                "4) Eliminar \n " +
-                "5) Salir ");
+                "3) Eliminar \n " +
+                "4) Salir ");
 
         Scanner keyboard = Singletone.getInstance();
 
@@ -60,9 +59,24 @@ public class AccountView {
 
 
 
+    public void showNewAccount(Account account){
+        System.out.println("Su número de cuenta corriente es: " + account.getNumber());
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public void accountAlreadyExist(Integer number){
+        System.out.println("Este número de cuenta ya existe en la base de datos");
+        Singletone.pressEnterKeyToContinue();
+    }
+
+
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
     }
+
+ 
+
+
 }
 
 

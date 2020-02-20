@@ -1,10 +1,10 @@
 package ar.com.ada.maven.root.controller;
 
-import ar.com.ada.maven.root.model.dao.Account_typeDAO;
+
 import ar.com.ada.maven.root.model.dao.MovementDAO;
 import ar.com.ada.maven.root.model.dao.MovementTypeDAO;
 import ar.com.ada.maven.root.model.dto.Account;
-import ar.com.ada.maven.root.model.dto.Account_type;
+import ar.com.ada.maven.root.model.dto.AccountType;
 import ar.com.ada.maven.root.model.dto.Movement;
 import ar.com.ada.maven.root.model.dto.MovementType;
 import ar.com.ada.maven.root.view.MovementView;
@@ -81,7 +81,7 @@ public class MovementController {
         //un descubierto de 150 euros se debera rechazar
     }
 
-    private static Boolean hashContinueMovement(Account_type accountType, Double amount) {
+    private static Boolean hashContinueMovement(AccountType accountType, Double amount) {
         int limitAmount = 0;
         switch (accountType.getCode_control()) {
 

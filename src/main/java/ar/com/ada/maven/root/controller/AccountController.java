@@ -2,10 +2,16 @@ package ar.com.ada.maven.root.controller;
 
 import ar.com.ada.maven.root.model.dao.AccountDAO;
 import ar.com.ada.maven.root.model.dto.Account;
+import ar.com.ada.maven.root.model.dto.AccountType;
+import ar.com.ada.maven.root.model.dto.Branch;
+import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.IbanGenerator;
+import ar.com.ada.maven.root.utils.Singletone;
 import ar.com.ada.maven.root.view.AccountView;
 import ar.com.ada.maven.root.view.MainView;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class AccountController {
@@ -42,9 +48,12 @@ public class AccountController {
     }
 
 
-    public static void createNewAccount(Account account) {
+    public static void createNewAccount(Branch branch, AccountType accountType) {
 
         Account newAccount = new Account();
+        Client client = new Client();
+
+
         Account lastAccount = accountDAO.getLastAccount();
         Integer ultimoNumeroCuenta = lastAccount.getControlNumber();
         Integer nuevoNumCuenta = ultimoNumeroCuenta + 1;
@@ -68,5 +77,32 @@ public class AccountController {
             view.newAccountCanceled();
         }
     }
+
+    private HashMap<String, String> generateNewNumberAccount(Branch branch, AccountType accountType){
+        HashMap<String, String> numberData = new HashMap<>();
+        Account lastAccount = accountDAO.getLastAccount();
+        Integer newControlNumberAccount = lastAccount.getControlNumber() + 1;
+
+        String iban = branch.getBank().getCountry().getCode();
+        //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
+        Integer bankCode = branch.getBank().getCode();
+        //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
+        Integer branchCode = branch.getCode();
+        Integer accountTypeCode =  accountType.getCode_control();
+        Integer codigoCuentaCliente = newControlNumberAccount;
+
+       
+
+        String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
+
+
+        numberData.put("number", numberAccount);
+
+        return  numberData;
+    }
+
+
+
+
 
 }

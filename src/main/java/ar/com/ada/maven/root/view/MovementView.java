@@ -65,7 +65,8 @@ public class MovementView {
         System.out.println("Se ha cancelado el proceso de elegir un tipo de movimiento");
 
     }
-    public  void  creationLimitNotPermitted(){
+
+    public void creationLimitNotPermitted() {
         System.out.println("El Movimiento que intentas crear no esta permitido");
     }
 

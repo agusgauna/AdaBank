@@ -130,7 +130,7 @@ public class ClientDAO implements DAO<Client> {
 
 
     public List<Client> findAll(int limit, int offset) {
-        String sql = "SELECT FROM Client LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM Client LIMIT ? OFFSET ?";
         List<Client> clientes = new ArrayList<>();
         try {
             Connection connection = DBConection.getConnection();

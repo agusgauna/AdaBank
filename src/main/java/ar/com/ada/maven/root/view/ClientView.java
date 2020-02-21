@@ -1,7 +1,6 @@
 package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Client;
-import ar.com.ada.maven.root.utils.Ansi;
 import ar.com.ada.maven.root.utils.CommandLineTable;
 import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.utils.Singletone;
@@ -22,16 +21,8 @@ public class ClientView {
         System.out.println("| 3 | Editar");
         System.out.println("| 4 | Eliminar");
         System.out.println("| 5 | Salir");
-        Scanner scanner = Singletone.getInstance();
-        while (true) {
-            try {
-                int choice = scanner.nextInt();
-                return choice;
-            } catch (InputMismatchException e) {
-                System.out.println("Por favor, ingrese una opción válida");
-                scanner.next();
-            }
-        }
+        return Integer.valueOf(Singletone.getInputInteger());
+
     }
     public void printAllClient(List<Client> clients) {
         System.out.println("El listado de los clientes es: ");

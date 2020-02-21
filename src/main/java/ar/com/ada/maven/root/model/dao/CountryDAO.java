@@ -25,7 +25,7 @@ import java.util.List;
                 Statement statement = connection.createStatement();
                 ResultSet rs = statement.executeQuery(sql);
                 while (rs.next()) {
-                    Country country1 = new Country(rs.getInt("id"), rs.getString("name"), rs.getInt("code"));
+                    Country country1 = new Country(rs.getInt("id"), rs.getString("name"), rs.getString("code"));
                     country.add(country1);
                 }
                 connection.close();
@@ -45,7 +45,7 @@ import java.util.List;
                 preparedStatement.setInt(1, id);
                 ResultSet rs = preparedStatement.executeQuery();
                 if (rs.next()) {
-                    country = new Country(rs.getInt("id"), rs.getString("name"), rs.getInt("code"));
+                    country = new Country(rs.getInt("id"), rs.getString("name"), rs.getString("code"));
                 }
                 if (willCloseConnection)
                     connection.close();

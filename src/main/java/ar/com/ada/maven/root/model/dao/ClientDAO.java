@@ -79,13 +79,15 @@ public class ClientDAO implements DAO<Client> {
 
     @Override
     public Boolean save(Client client) {
-        String sql = "INSERT INTO Client (name, last_name) VALUES (?, ?)";
+        String sql = "INSERT INTO Client (name, last_name, type_doc, doc) VALUES (?, ?, ?, ?)";
         int hasSave = 0;
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, client.getName());
             preparedStatement.setString(2, client.getLastName());
+            preparedStatement.setString(3,client.getType_doc());
+            preparedStatement.setInt(4, client.getDoc());
             hasSave = preparedStatement.executeUpdate();
             connection.close();
 
@@ -128,7 +130,7 @@ public class ClientDAO implements DAO<Client> {
 
 
     public List<Client> findAll(int limit, int offset) {
-        String sql = "SELECT FROM Client LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM Client LIMIT ? OFFSET ?";
         List<Client> clientes = new ArrayList<>();
         try {
             Connection connection = DBConection.getConnection();

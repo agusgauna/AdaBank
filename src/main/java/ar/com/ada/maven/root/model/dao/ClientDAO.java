@@ -114,6 +114,22 @@ public class ClientDAO implements DAO<Client> {
         return hasUpdate == 1;
     }
 
+    public Boolean updateLastName(Client client, Integer id) {
+        String sql = "UPDATE Client set last_name = ? where id = ? ";
+        int hasUpdate = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, client.getLastName());
+            preparedStatement.setInt(2, id);
+            hasUpdate = preparedStatement.executeUpdate();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return hasUpdate == 1;
+    }
+
     @Override
     public Boolean delete(Integer id) {
         String sql = "DELETE FROM Client WHERE id = ?";

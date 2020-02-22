@@ -119,7 +119,7 @@ public class ClientView {
     }
 
     public static String getLastNameToUpdate(Client client) {
-        System.out.print("Se actualizará el nombre del siguiente cliente: ");
+        System.out.print("Se actualizará el apellido del siguiente cliente: ");
         System.out.println( client.getName() + " " + client.getLastName()+ " ");
 
         System.out.print("Ingrese el nuevo apellido del cliente para actualizar ");

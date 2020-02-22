@@ -137,7 +137,8 @@ public class ClientController {
                 clientById.setName(nameToUpdate);
                 clientById.setLastName(lastNameToUpdate);
                 Boolean isSaved = clientDAO.update(clientById, id);
-                if (isSaved)
+                Boolean isSaved2 = clientDAO.updateLastName(clientById,id);
+                if (isSaved && isSaved2)
                     view.showUpdateClient(clientById);
             } else
                 view.updateClientCanceled();

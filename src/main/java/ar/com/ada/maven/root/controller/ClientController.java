@@ -42,8 +42,7 @@ public class ClientController {
     }
 
     private static void clientList() {
-        List<Client> clients = clientDAO.findAll();
-        view.printAllClient(clients);
+        listClientsPerPage(null, true);
     }
 
     public static void createNewClient() {
@@ -132,14 +131,12 @@ public class ClientController {
         Client clientById = clientDAO.findById(id);
         if (clientById != null) {
             String nameToUpdate = view.getNameToUpdate(clientById);
-            String lastName = view.getNameToUpdate(clientById);
-            if (!nameToUpdate.isEmpty()) {
-                clientDAO.findByName(nameToUpdate, lastName);
+            String lastNameToUpdate = view.getLastNameToUpdate(clientById);
+            if (!nameToUpdate.isEmpty() && !lastNameToUpdate.isEmpty()) {
+                clientDAO.findByName(nameToUpdate, lastNameToUpdate);
                 clientById.setName(nameToUpdate);
-                clientById.setLastName(nameToUpdate);
-
+                clientById.setLastName(lastNameToUpdate);
                 Boolean isSaved = clientDAO.update(clientById, id);
-
                 if (isSaved)
                     view.showUpdateClient(clientById);
             } else

@@ -56,21 +56,7 @@ public class ClientView {
         paginator.forEach(page -> System.out.print(page + " "));
         System.out.println("\n+----------------------------------------------------------------+\n");
 
-        while (true) {
-            try {
-                System.out.print("? ");
-                String name = scanner.nextLine().trim();
-                while (!name.matches("^[0-9IiAaSsUuEeqQ]+$") && !name.isEmpty()) {
-                    MainView.invalidData();
-                    System.out.print("? ");
-                    name = scanner.nextLine();
-                }
-                return name;
-            } catch (InputMismatchException e) {
-                MainView.invalidData();
-                scanner.next();
-            }
-        }
+        return String.valueOf(Singletone.getInputString());
     }
 
 
@@ -119,25 +105,12 @@ public class ClientView {
         System.out.print("Se actualizará el nombre del siguiente cliente: ");
         System.out.println( client.getName() + " " + client.getLastName()+ " ");
 
-        System.out.print("Ingrese el nuevo nombre del cliente para actualizar ");
+        System.out.print("Ingrese el nuevo nombre del cliente para actualizar " );
         System.out.println("(para cancelar, no ingresar datos y presionar enter)");
 
         scanner.nextLine();
 
-        while (true) {
-            try {
-                System.out.print("? ");
-                String name = scanner.nextLine().trim();
-                while (!name.matches("^[A-Za-záéíóúüÁÉÍÓÚÜ\\s]+$") && !name.isEmpty()) {
-                    MainView.invalidData();
-                    name = scanner.nextLine();
-                }
-                return name;
-            } catch (InputMismatchException e) {
-                MainView.invalidData();
-                scanner.next();
-            }
-        }
+        return String.valueOf(Singletone.getInputString());
     }
 
     public static void selectClientIdToEdithOrDeleteInfo(String actions) {

@@ -46,12 +46,47 @@ public class AccountView {
 
             System.out.println(" Usted ingresará una nueva cuenta ");
             System.out.println(" Ingrese numero de DNI: ");
+
             data.put("doc", Singletone.getInputInteger());
 
             return data;
         }
 
+    public static Boolean getResponseToDelete(Account account) {
+        System.out.print("Se Eliminará la siguiente cuenta: ");
 
+
+        System.out.println("¿Esta seguro que desea eliminarla? ");
+        System.out.println("| 1 | Si");
+        System.out.println("| 2 | No");
+
+        Scanner keyboard = Singletone.getInstance();
+        keyboard.nextLine();
+
+        while (true) {
+            try {
+                System.out.print("? ");
+                String name = keyboard.nextLine().trim();
+                while (!name.matches("^[1-2]+$") && !name.isEmpty()) {
+                    System.out.println("Error, debe ingresar una opcion valida");
+                    name = keyboard.nextLine();
+                }
+                return "1".equals(name);
+            } catch (InputMismatchException e) {
+                System.out.println("Error, debe ingresar una opcion valida");
+                keyboard.next();
+            }
+        }
+    }
+    public void deleteAccountCanceled() {
+        System.out.println("Ha cancelado la eliminacion de la cuenta\n");
+        Singletone.pressEnterKeyToContinue();
+    }
+
+    public void showDeleteAccount(Integer number) {
+        System.out.println("La cuenta " + number + " se ha eliminado exitosamente");
+        Singletone.pressEnterKeyToContinue();
+    }
 
     public void showNewAccount(Account account){
         System.out.println("Su número de cuenta corriente es: " + account.getNumber());

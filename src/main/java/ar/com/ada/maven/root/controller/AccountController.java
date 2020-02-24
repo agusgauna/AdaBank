@@ -50,7 +50,8 @@ public class AccountController {
     }
 
 
-    public static void createNewAccount(Branch branch, AccountType accountType) {
+
+    public static void createNewAccount() {
 
         Account newAccount = new Account();
         Client client = new Client();
@@ -113,7 +114,7 @@ public class AccountController {
                 Boolean isDelete = accountDAO.delete(id);
 
                 if (isDelete)
-                    view.showDeleteAccount(account.getNumber());
+                    view.showDeleteAccount(account.getControlNumber());
             } else
                 view.newAccountCanceled();
 
@@ -121,4 +122,5 @@ public class AccountController {
 
 
     }
+
 }

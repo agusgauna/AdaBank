@@ -17,6 +17,7 @@ import java.util.List;
 public class AccountController {
     private static AccountView view = new AccountView();
     private static AccountDAO accountDAO = new AccountDAO(false);
+
     private void assertEquals(String s, String padStart) {
     }
 
@@ -55,9 +56,6 @@ public class AccountController {
         Client client = new Client();
 
 
-
-
-
         Account lastAccount = accountDAO.getLastAccount();
         Integer ultimoNumeroCuenta = lastAccount.getControlNumber();
         Integer nuevoNumCuenta = ultimoNumeroCuenta + 1;
@@ -82,7 +80,7 @@ public class AccountController {
         }*/
     }
 
-    private HashMap<String, String> generateNewNumberAccount(Branch branch, AccountType accountType){
+    private HashMap<String, String> generateNewNumberAccount(Branch branch, AccountType accountType) {
         HashMap<String, String> numberData = new HashMap<>();
         Account lastAccount = accountDAO.getLastAccount();
         Integer newControlNumberAccount = lastAccount.getControlNumber() + 1;
@@ -92,10 +90,10 @@ public class AccountController {
         Integer bankCode = branch.getBank().getCode();
         //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
         Integer branchCode = branch.getCode();
-        Integer accountTypeCode =  accountType.getCode_control();
+        Integer accountTypeCode = accountType.getCode_control();
         Integer codigoCuentaCliente = newControlNumberAccount;
 
-    assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
+        assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
 
         String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
 
@@ -103,10 +101,24 @@ public class AccountController {
         numberData.put("number", numberAccount);
         numberData.put("control", String.valueOf(newControlNumberAccount));
 
-        return  numberData;
+        return numberData;
     }
 
+    private static void deleteAccount(int id) {
+        Account account = accountDAO.findById(id);
+        if (account != null) {
+            Boolean toDelete = view.getResponseToDelete(account);
+            if (toDelete) {
+
+                Boolean isDelete = accountDAO.delete(id);
+
+                if (isDelete)
+                    view.showDeleteAccount(account.getNumber());
+            } else
+                view.newAccountCanceled();
+
+        }
 
 
-
+    }
 }

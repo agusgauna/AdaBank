@@ -13,18 +13,9 @@ public class MainView {
         System.out.println("| 1 | Cliente");
         System.out.println("| 2 | Cuenta");
         System.out.println("| 3 | Movimientos");
-
-        Scanner keyboard = Singletone.getInstance();
-
-        while (true) {
-            try {
-                System.out.println("?");
-                int choice = keyboard.nextInt();
-                return choice;
-            } catch (InputMismatchException e) {
-                System.out.println("Por favor, ingrese una opción válida");
-                keyboard.next();
-            }
-        }
+        return Integer.valueOf(Singletone.getInputInteger());
+    }
+    public static void invalidData () {
+        System.out.println("Debe ingresar un dato válido");
     }
 }

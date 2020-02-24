@@ -3,26 +3,25 @@ package ar.com.ada.maven.root.model.dto;
 public class Branch {
 
 
-    private int id;
+    private Integer id;
     private String name;
-    private int code;
-    private Bank bankId;
+    private Integer code;
+    private Bank bank;
 
-    public Branch() {
-    }
+    public Branch() { }
 
-    public Branch(int id, String name, int code, Bank bankId) {
+    public Branch(Integer id, String name, Integer code, Bank bank) {
         this.id = id;
         this.name = name;
         this.code = code;
-        this.bankId = bankId;
+        this.bank = bank;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -34,20 +33,20 @@ public class Branch {
         this.name = name;
     }
 
-    public int getCode() {
+    public Integer getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(Integer code) {
         this.code = code;
     }
 
-    public Bank getBankId() {
-        return bankId;
+    public Bank getBank() {
+        return bank;
     }
 
-    public void setBankId(Bank bankId) {
-        this.bankId = bankId;
+    public void setBank(Bank bank) {
+        this.bank = bank;
     }
 
     @Override
@@ -55,6 +54,6 @@ public class Branch {
         return "El id es: " + id +
                 ". El nombre de la sucursal es: " + name +
                 ". El codigo de la sucursal es: " + code +
-                ". El banco es: " + bankId;
+                ". El banco es: " + bank;
     }
 }

@@ -1,31 +1,56 @@
 package ar.com.ada.maven.root.model.dto;
 
 public class Account {
-    private int id;
+    private Integer id;
     private String currency;
-    private int number;
-    private double balance;
+    private String number;
+    private Double balance;
+    private Integer controlNumber;
     private Client client;
-    private Account_type account_type;
+    private AccountType account_type;
     private Branch branch;
 
     public Account() { }
 
-    public Account(int id, String currency, int number, double balance, Client client, Account_type account_type, Branch branch) {
+    public Account(Integer id,
+                   String currency,
+                   String number, // AR01 3456 6543 76 1234567890
+                   Double balance,
+                   Integer controlNumber,
+                   Client client,
+                   AccountType account_type,
+                   Branch branch) {
         this.id = id;
         this.currency = currency;
         this.number = number;
         this.balance = balance;
+        this.controlNumber = controlNumber;
         this.client = client;
         this.account_type = account_type;
         this.branch = branch;
     }
 
-    public int getId() {
+    public Account(String currency,
+                   String number, // AR01 3456 6543 76 1234567890
+                   Double balance,
+                   Integer controlNumber,
+                   Client client,
+                   AccountType account_type,
+                   Branch branch) {
+        this.currency = currency;
+        this.number = number;
+        this.balance = balance;
+        this.controlNumber = controlNumber;
+        this.client = client;
+        this.account_type = account_type;
+        this.branch = branch;
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -37,20 +62,28 @@ public class Account {
         this.currency = currency;
     }
 
-    public int getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(int number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
-    public double getBalance() {
+    public Double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(Double balance) {
         this.balance = balance;
+    }
+
+    public Integer getControlNumber() {
+        return controlNumber;
+    }
+
+    public void setControlNumber(Integer controlNumber) {
+        this.controlNumber = controlNumber;
     }
 
     public Client getClient() {
@@ -61,11 +94,11 @@ public class Account {
         this.client = client;
     }
 
-    public Account_type getAccount_type() {
+    public AccountType getAccount_type() {
         return account_type;
     }
 
-    public void setAccount_type(Account_type account_type) {
+    public void setAccount_type(AccountType account_type) {
         this.account_type = account_type;
     }
 
@@ -83,6 +116,7 @@ public class Account {
                 ". La moneda de la cuenta es: " + currency +
                 ". El nro de cuenta es: " + number +
                 ". El saldo es: " + balance +
+                ". El número de control es: " +controlNumber+
                 ". El cliente es: " + client +
                 ". El tipo de cuenta es: " + account_type +
                 ". La sucursal es: " + branch;

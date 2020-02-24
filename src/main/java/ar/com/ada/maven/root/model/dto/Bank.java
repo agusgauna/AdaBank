@@ -2,26 +2,25 @@ package ar.com.ada.maven.root.model.dto;
 
 public class Bank {
 
-    private int id;
+    private Integer id;
     private String name;
-    private int iban;
-    private Country countryId;
+    private Integer code;
+    private Country country;
 
-    public Bank() {
-    }
+    public Bank() { }
 
-    public Bank(int id, String name, int iban, Country countryId) {
+    public Bank(Integer id, String name, Integer code, Country country) {
         this.id = id;
         this.name = name;
-        this.iban = iban;
-        this.countryId = countryId;
+        this.code = code;
+        this.country = country;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,27 +32,27 @@ public class Bank {
         this.name = name;
     }
 
-    public int getIban() {
-        return iban;
+    public Integer getCode() {
+        return code;
     }
 
-    public void setIban(int iban) {
-        this.iban = iban;
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
-    public Country getCountryId() {
-        return countryId;
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryId(Country countryId) {
-        this.countryId = countryId;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Override
     public String toString() {
         return "El id es: " + id +
                 ". El nombre del banco es: " + name +
-                ". El codigo iban es: " + iban +
-                ". El pais del banco es: " + countryId;
+                ". El codigo iban es: " + code +
+                ". El pais del banco es: " + country;
     }
 }

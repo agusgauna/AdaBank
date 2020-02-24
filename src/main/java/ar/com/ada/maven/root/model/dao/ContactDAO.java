@@ -11,7 +11,8 @@ public class ContactDAO implements DAO<Contact> {
     private ClientDAO clientDAO = new ClientDAO(false);
     private Boolean willCloseConnection = true;
 
-    public ContactDAO() { }
+    public ContactDAO() {
+    }
 
     public ContactDAO(Boolean willCloseConnection) {
         this.willCloseConnection = willCloseConnection;

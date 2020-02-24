@@ -2,15 +2,27 @@ package ar.com.ada.maven.root.model.dto;
 
 public class Client {
 
-    private int id;
+    private Integer id;
     private String name;
     private String lastName;
     private String type_doc;
-    private int doc;
+    private Integer doc;
 
     public Client() { }
 
-    public Client(int id, String name, String lastName, String type_doc, int doc) {
+    public Client(String name, String lastName) {
+        this.name = name;
+        this.lastName = lastName;
+    }
+
+    public Client(String name, String lastName, String type_doc, Integer doc) {
+        this.name = name;
+        this.lastName = lastName;
+        this.type_doc = type_doc;
+        this.doc = doc;
+    }
+
+    public Client(Integer id, String name, String lastName, String type_doc, Integer doc) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -18,11 +30,11 @@ public class Client {
         this.doc = doc;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,11 +62,11 @@ public class Client {
         this.type_doc = type_doc;
     }
 
-    public int getDoc() {
+    public Integer getDoc() {
         return doc;
     }
 
-    public void setDoc(int doc) {
+    public void setDoc(Integer doc) {
         this.doc = doc;
     }
 

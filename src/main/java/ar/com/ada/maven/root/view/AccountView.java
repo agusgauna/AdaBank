@@ -51,12 +51,6 @@ public class AccountView {
         }
 
 
-        // iban+cod bco + cod suc + cod control + cod cuenta
-        public void createNumberAccount(){
-
-
-        }
-
 
     public void AccountAlreadyExists(Integer doc) {
         System.out.println("La cuenta ya existe en base de datos");

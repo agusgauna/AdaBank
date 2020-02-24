@@ -47,7 +47,7 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
+                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
 
             if (willCloseConnection) ;
             connection.close();
@@ -67,7 +67,7 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(1, doc);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
+                client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
             if (willCloseConnection)
                 connection.close();
         } catch (SQLException e) {
@@ -79,13 +79,15 @@ public class ClientDAO implements DAO<Client> {
 
     @Override
     public Boolean save(Client client) {
-        String sql = "INSERT INTO Client (nombre, lastname) VALUES (?, ?)";
+        String sql = "INSERT INTO Client (name, last_name, type_doc, doc) VALUES (?, ?, ?, ?)";
         int hasSave = 0;
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, client.getName());
             preparedStatement.setString(2, client.getLastName());
+            preparedStatement.setString(3,client.getType_doc());
+            preparedStatement.setInt(4, client.getDoc());
             hasSave = preparedStatement.executeUpdate();
             connection.close();
 
@@ -105,7 +107,7 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setString(1, client.getName());
             preparedStatement.setInt(2, id);
         } catch (Exception e) {
-            System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return hasUpdate == 1;
     }
@@ -121,14 +123,14 @@ public class ClientDAO implements DAO<Client> {
             hasDelete = preparedStatement.executeUpdate();
             connection.close();
         } catch (SQLException e) {
-            System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return hasDelete == 1;
     }
 
 
     public List<Client> findAll(int limit, int offset) {
-        String sql = "SELECT FROM Client LIMIT ? OFFSET ?";
+        String sql = "SELECT * FROM Client LIMIT ? OFFSET ?";
         List<Client> clientes = new ArrayList<>();
         try {
             Connection connection = DBConection.getConnection();
@@ -137,13 +139,13 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(2, offset);
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Client client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("lastName"), rs.getString("type_doc"), rs.getInt("doc"));
+                Client client = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
                 clientes.add(client);
             }
             connection.close();
 
         } catch (SQLException e) {
-            System.out.println("\"CONNECTION ERROR: \" + e.getMessage()");
+            System.out.println("CONNECTION ERROR:" + e.getMessage());
         }
         return clientes;
     }
@@ -164,7 +166,7 @@ public class ClientDAO implements DAO<Client> {
         return total;
     }
     public Client findByName(String name, String lastName) {
-        String sql = "SELECT * FROM Continent WHERE nombre = ? y apellido = ?";
+        String sql = "SELECT * FROM Client WHERE nombre = ? y apellido = ?";
         Client client = null;
         try {
             Connection connection = DBConection.getConnection();
@@ -173,7 +175,7 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setString(2, lastName);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                client = new Client(rs.getString("name"), rs.getString("lastName"));
+                client = new Client(rs.getString("name"), rs.getString("last_name"));
 
             if (willCloseConnection)
                 connection.close();

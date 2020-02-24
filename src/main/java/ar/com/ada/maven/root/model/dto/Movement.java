@@ -8,12 +8,20 @@ public class Movement {
     private Double amount;
     private String description;
     private Account account;
-    private Movement_type movement_type;
+    private MovementType movement_type;
 
     public Movement() { }
 
-    public Movement(Integer id, Date date, Double amount, String description, Account account, Movement_type movement_type) {
+    public Movement(Integer id, Date date, Double amount, String description, Account account, MovementType movement_type) {
         this.id = id;
+        this.date = date;
+        this.amount = amount;
+        this.description = description;
+        this.account = account;
+        this.movement_type = movement_type;
+    }
+
+    public Movement(Date date, Double amount, String description, Account account, MovementType movement_type) {
         this.date = date;
         this.amount = amount;
         this.description = description;
@@ -61,11 +69,11 @@ public class Movement {
         this.account = account;
     }
 
-    public Movement_type getMovement_type() {
+    public MovementType getMovement_type() {
         return movement_type;
     }
 
-    public void setMovement_type(Movement_type movement_type) {
+    public void setMovement_type(MovementType movement_type) {
         this.movement_type = movement_type;
     }
 

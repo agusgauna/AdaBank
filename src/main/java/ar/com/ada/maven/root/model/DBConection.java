@@ -5,14 +5,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBConection {
-private static Connection connection;
-private static String user = "adatp";
-private static String host = "jdbc:mysql://localhost:3306/";
-private static String password = "adatp";
-private static String db = "adabank";
-private static String drive = "com.mysql.cj.jdbc.Driver";
+    private static Connection connection;
+    private static String user = "adatp";
+    private static String host = "jdbc:mysql://localhost:3306/";
+    private static String password = "adatp";
+    private static String db = "adabank";
+    private static String drive = "com.mysql.cj.jdbc.Driver";
 
-    public DBConection() { }
+    public DBConection() {
+    }
 
     public static Connection getConnection() {
         try {

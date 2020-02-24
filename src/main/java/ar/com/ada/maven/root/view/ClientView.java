@@ -1,7 +1,6 @@
 package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Client;
-import ar.com.ada.maven.root.utils.Ansi;
 import ar.com.ada.maven.root.utils.CommandLineTable;
 import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.utils.Singletone;
@@ -16,17 +15,14 @@ public class ClientView {
 
     public int clientMenuSelectOption() {
         System.out.println("Ud ha ingresado al menú Cliente");
-        System.out.println("Las opciones disponibles son: 1.Listar 2. Agregar 3.Editar 4.Eliminar 5. Salir ");
-        Scanner scanner = Singletone.getInstance();
-        while (true) {
-            try {
-                int choice = scanner.nextInt();
-                return choice;
-            } catch (InputMismatchException e) {
-                System.out.println("Por favor, ingrese una opción válida");
-                scanner.next();
-            }
-        }
+        System.out.println("Las opciones disponibles son: ");
+        System.out.println("| 1 | Listar");
+        System.out.println("| 2 | Agregar");
+        System.out.println("| 3 | Editar");
+        System.out.println("| 4 | Eliminar");
+        System.out.println("| 5 | Salir");
+        return Integer.valueOf(Singletone.getInputInteger());
+
     }
     public void printAllClient(List<Client> clients) {
         System.out.println("El listado de los clientes es: ");
@@ -60,21 +56,7 @@ public class ClientView {
         paginator.forEach(page -> System.out.print(page + " "));
         System.out.println("\n+----------------------------------------------------------------+\n");
 
-        while (true) {
-            try {
-                System.out.print("? ");
-                String name = scanner.nextLine().trim();
-                while (!name.matches("^[0-9IiAaSsUuEeqQ]+$") && !name.isEmpty()) {
-                    MainView.invalidData();
-                    System.out.print("? ");
-                    name = scanner.nextLine();
-                }
-                return name;
-            } catch (InputMismatchException e) {
-                MainView.invalidData();
-                scanner.next();
-            }
-        }
+        return String.valueOf(Singletone.getInputString());
     }
 
 
@@ -123,25 +105,12 @@ public class ClientView {
         System.out.print("Se actualizará el nombre del siguiente cliente: ");
         System.out.println( client.getName() + " " + client.getLastName()+ " ");
 
-        System.out.print("Ingrese el nuevo nombre del cliente para actualizar ");
+        System.out.print("Ingrese el nuevo nombre del cliente para actualizar " );
         System.out.println("(para cancelar, no ingresar datos y presionar enter)");
 
         scanner.nextLine();
 
-        while (true) {
-            try {
-                System.out.print("? ");
-                String name = scanner.nextLine().trim();
-                while (!name.matches("^[A-Za-záéíóúüÁÉÍÓÚÜ\\s]+$") && !name.isEmpty()) {
-                    MainView.invalidData();
-                    name = scanner.nextLine();
-                }
-                return name;
-            } catch (InputMismatchException e) {
-                MainView.invalidData();
-                scanner.next();
-            }
-        }
+        return String.valueOf(Singletone.getInputString());
     }
 
     public static void selectClientIdToEdithOrDeleteInfo(String actions) {

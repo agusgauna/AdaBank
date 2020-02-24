@@ -52,21 +52,23 @@ public class AccountView {
 
 
 
-    public void AccountAlreadyExists(Integer doc) {
-        System.out.println("La cuenta ya existe en base de datos");
+
+    public void showNewAccount(Account account){
+        System.out.println("Su número de cuenta corriente es: " + account.getNumber());
         Singletone.pressEnterKeyToContinue();
     }
+
+    public void accountAlreadyExist(Integer number){
+        System.out.println("Este número de cuenta ya existe en la base de datos");
+        Singletone.pressEnterKeyToContinue();
+    }
+
+
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
     }
 
-    public void showNewAccount(Account account) {
-
-        System.out.println("Su número de cuenta es :" + account.getNumber() );
-        Singletone.pressEnterKeyToContinue();
-
-
-    }
+ 
 
 
 }

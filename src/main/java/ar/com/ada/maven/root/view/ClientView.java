@@ -24,17 +24,7 @@ public class ClientView {
         return Integer.valueOf(Singletone.getInputInteger());
 
     }
-    public void printAllClient(List<Client> clients) {
-        System.out.println("El listado de los clientes es: ");
-        clients.forEach(client -> {
-            Integer id = client.getId();
-            String name = client.getName();
-            String lastName = client.getLastName();
-            String typeDoc = client.getType_doc();
-            Integer dni = client.getDoc();
-            System.out.println("El id es: " + id + ". El nombre es: " + name+ ". El apellido es: " +lastName+ ". El tipo de documento es: " + typeDoc+ ". El documento es:" + dni);
-        });
-    }
+
     public String printClientsPerPage(List<Client> clients, List<String> paginator, String optionEdithOrDelete, boolean showHeader) {
         if (showHeader) {
             System.out.println("La lista de clientes es: ");
@@ -101,13 +91,27 @@ public class ClientView {
         System.out.println("Selecciones un ID valido o 0 para cancelar");
     }
 
-    public String getNameToUpdate(Client client) {
+    public static String getNameToUpdate(Client client) {
         System.out.print("Se actualizará el nombre del siguiente cliente: ");
         System.out.println( client.getName() + " " + client.getLastName()+ " ");
 
         System.out.print("Ingrese el nuevo nombre del cliente para actualizar " );
         System.out.println("(para cancelar, no ingresar datos y presionar enter)");
 
+        Scanner scanner = Singletone.getInstance();
+        scanner.nextLine();
+
+        return String.valueOf(Singletone.getInputString());
+    }
+
+    public static String getLastNameToUpdate(Client client) {
+        System.out.print("Se actualizará el apellido del siguiente cliente: ");
+        System.out.println( client.getName() + " " + client.getLastName()+ " ");
+
+        System.out.print("Presione enter e ingrese el nuevo apellido del cliente para actualizar ");
+        System.out.println("(para cancelar, no ingresar datos y presionar enter)");
+
+        Scanner scanner = Singletone.getInstance();
         scanner.nextLine();
 
         return String.valueOf(Singletone.getInputString());

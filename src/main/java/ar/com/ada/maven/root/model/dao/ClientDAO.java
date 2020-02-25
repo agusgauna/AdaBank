@@ -42,7 +42,8 @@ public class ClientDAO implements DAO<Client> {
         String sql = "SELECT * FROM Client WHERE ID = ?";
         Client cliente = null;
 
-        try (Connection connection = DBConection.getConnection()) {
+        try  {
+            Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
@@ -99,13 +100,31 @@ public class ClientDAO implements DAO<Client> {
 
     @Override
     public Boolean update(Client client, Integer id) {
-        String sql = "UPDATE Client set name = ? where id? ? ";
+        String sql = "UPDATE Client set name = ? where id = ? ";
         int hasUpdate = 0;
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, client.getName());
             preparedStatement.setInt(2, id);
+            hasUpdate = preparedStatement.executeUpdate();
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return hasUpdate == 1;
+    }
+
+    public Boolean updateLastName(Client client, Integer id) {
+        String sql = "UPDATE Client set last_name = ? where id = ? ";
+        int hasUpdate = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, client.getLastName());
+            preparedStatement.setInt(2, id);
+            hasUpdate = preparedStatement.executeUpdate();
+            connection.close();
         } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
@@ -165,14 +184,14 @@ public class ClientDAO implements DAO<Client> {
 
         return total;
     }
-    public Client findByName(String name, String lastName) {
-        String sql = "SELECT * FROM Client WHERE nombre = ? y apellido = ?";
+    public Client findByName(String name, String last_name) {
+        String sql = "SELECT name, last_name FROM Client";
         Client client = null;
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, name);
-            preparedStatement.setString(2, lastName);
+            preparedStatement.setString(2, last_name);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
                 client = new Client(rs.getString("name"), rs.getString("last_name"));

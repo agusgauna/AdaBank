@@ -177,6 +177,7 @@ public class AccountDAO implements DAO<Account> {
         }
         return account;
     }
+
     public int getTotalAccounts() {
         String sql = "SELECT COUNT(*) AS total FROM Account";
         int totalAccounts = 0;
@@ -191,6 +192,7 @@ public class AccountDAO implements DAO<Account> {
         }
         return totalAccounts;
     }
+
 
     public Account findByNumberAccount(String number) {
         String sql = "SELECT * FROM Account WHERE number = ?";
@@ -214,4 +216,5 @@ public class AccountDAO implements DAO<Account> {
 
         return account;
     }
+
 }

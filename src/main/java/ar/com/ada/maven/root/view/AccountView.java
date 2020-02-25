@@ -152,7 +152,32 @@ public class AccountView {
         return Singletone.getInputString();
     }
 
+    public void accountNotExist(int id) {
+        System.out.println("No existe una cuenta con este id " + id + " asociado");
+        System.out.println("Selecciones un ID valido o 0 para cancelar");
+    }
 
+    public Integer clientIdSelected(String actionOption) {
+        switch (actionOption) {
+            case Paginator.EDITH:
+                actionOption = "editar";
+                break;
+            case Paginator.DELETE:
+                actionOption = "eliminar";
+                break;
+            case Paginator.SELECT:
+                actionOption = "elegir";
+                break;
+        }
+        System.out.println("Ingrese el numero de ID del cliente para " + actionOption + " ó 0 para cancelar: \n");
+
+        return Integer.valueOf( Singletone.getInputInteger());
+    }
+
+    public static void selectAccountIdToEdithOrDeleteInfo(String actions) {
+        System.out.println("Seleccione el id para  " + actions + "de la siguiente lista de cuentas: ");
+        Singletone.pressEnterKeyToContinue();
+    }
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
     }

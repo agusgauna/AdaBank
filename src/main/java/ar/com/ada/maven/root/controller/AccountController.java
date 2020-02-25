@@ -111,7 +111,7 @@ public class AccountController {
 
          String number;
          number = assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
-                 
+
 
         Integer clientId = ClientController.listClientsPerPage(Paginator.SELECT, false);
         Integer accountTypeId = AccountTypeController.listAccountsTypePerPage(Paginator.SELECT, false);
@@ -143,9 +143,6 @@ public class AccountController {
 
     }
 
-
-
-
     }
 
     private HashMap<String, String> generateNewNumberAccount(Branch branch, AccountType accountType) {
@@ -154,9 +151,8 @@ public class AccountController {
         Integer newControlNumberAccount = lastAccount.getControlNumber() + 1;
 
         String iban = branch.getBank().getCountry().getCode();
-        //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
         Integer bankCode = branch.getBank().getCode();
-        //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
+
         Integer branchCode = branch.getCode();
         Integer accountTypeCode = accountType.getCode_control();
         Integer codigoCuentaCliente = newControlNumberAccount;
@@ -172,6 +168,31 @@ public class AccountController {
         return numberData;
     }
 
+    private static Account getAccountToDelete(String optionDelete) {
+        boolean hasExitWhile = false;
+        Account accountToDelete = null;
+
+        String actionInfo = Paginator.DELETE.equals(optionDelete) ? "Eliminar": "Eliminar";
+
+        view.selectAccountIdToEdithOrDeleteInfo(actionInfo);
+
+        int accountIdToDelete = listAccountsPerPage(optionDelete, true);
+
+        if (accountIdToDelete != 0) {
+            while (!hasExitWhile) {
+                accountToDelete = accountDAO.findById(accountIdToDelete);
+                if (accountToDelete == null) {
+                    view.accountNotExist(accountIdToDelete);
+                    accountIdToDelete = view.clientIdSelected(optionDelete);
+                    hasExitWhile = (accountIdToDelete == 0);
+                } else {
+                    hasExitWhile = true;
+                }
+            }
+        }
+
+        return accountToDelete;
+    }
     private static void deleteAccount(int id) {
         Account account = accountDAO.findById(id);
         if (account != null) {

@@ -122,7 +122,7 @@ public class ClientView {
         System.out.print("Se actualizará el apellido del siguiente cliente: ");
         System.out.println( client.getName() + " " + client.getLastName()+ " ");
 
-        System.out.print("Ingrese el nuevo apellido del cliente para actualizar ");
+        System.out.print("Presione enter e ingrese el nuevo apellido del cliente para actualizar ");
         System.out.println("(para cancelar, no ingresar datos y presionar enter)");
 
         Scanner scanner = Singletone.getInstance();

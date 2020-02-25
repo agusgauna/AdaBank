@@ -42,8 +42,7 @@ public class ClientController {
     }
 
     private static void clientList() {
-        List<Client> clients = clientDAO.findAll();
-        view.printAllClient(clients);
+        listClientsPerPage(null, true);
     }
 
     public static void createNewClient() {

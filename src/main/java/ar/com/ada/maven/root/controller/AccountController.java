@@ -1,11 +1,15 @@
 package ar.com.ada.maven.root.controller;
 
 import ar.com.ada.maven.root.model.dao.AccountDAO;
+import ar.com.ada.maven.root.model.dao.AccountTypeDAO;
+import ar.com.ada.maven.root.model.dao.BranchDAO;
+import ar.com.ada.maven.root.model.dao.ClientDAO;
 import ar.com.ada.maven.root.model.dto.Account;
 import ar.com.ada.maven.root.model.dto.AccountType;
 import ar.com.ada.maven.root.model.dto.Branch;
 import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.IbanGenerator;
+import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.view.AccountView;
 import ar.com.ada.maven.root.view.MainView;
 import com.google.common.base.Strings;
@@ -17,7 +21,9 @@ import java.util.List;
 public class AccountController {
     private static AccountView view = new AccountView();
     private static AccountDAO accountDAO = new AccountDAO(false);
-
+    private static ClientDAO clientDAO = new ClientDAO(false);
+    private static AccountTypeDAO accountTypeDAO = new AccountTypeDAO(false);
+    private static BranchDAO branchDAO = new BranchDAO(false);
     private void assertEquals(String s, String padStart) {
     }
 
@@ -45,39 +51,68 @@ public class AccountController {
     }
 
     private static void printAllAccounts() {
-        List<Account> cuentas = accountDAO.findAll();
-        view.printAllAccounts(cuentas);
+        printAccountsPerPage(null, true);
     }
 
+    private static int printAccountsPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
+        int limit = 4, currentPage = 0, totalAccounts, totalPages, customerIdSelected = 0;
+        List<Account> accounts;
+        List<String> paginator;
+        boolean shouldGetOut = false;
+
+        while (!shouldGetOut) {
+            totalAccounts = accountDAO.getTotalAccounts();
+            totalPages = (int) Math.ceil((double) totalAccounts / limit);
+            paginator = Paginator.buildPaginator(currentPage, totalPages);
+
+            accounts = accountDAO.findAll(limit, currentPage * limit);
+            String choice = view.printAllAccounts(accounts, paginator, optionSelectEdithOrDelete, showHeader); //*revisar
+
+            switch (choice) {
+                case "i":
+                case "I":
+                    currentPage = 0;
+                    break;
+                case "a":
+                case "A":
+                    if (currentPage > 0) currentPage--;
+                    break;
+                case "s":
+                case "S":
+                    if (currentPage + 1 < totalPages) currentPage++;
+                    break;
+                case "u":
+                case "U":
+                    currentPage = totalPages - 1;
+                    break;
+                case "e":
+                case "E":
+                    if (optionSelectEdithOrDelete != null) {
+                        customerIdSelected = view.clientIdSelected(optionSelectEdithOrDelete);
+                        shouldGetOut = true;
+                    }
+                    break;
+                case "q":
+                case "Q":
+                    shouldGetOut = true;
+                    break;
+                default:
+                    if (choice.matches("^-?\\d+$")) {
+                        int page = Integer.parseInt(choice);
+                        if (page > 0 && page <= totalPages) currentPage = page - 1;
+                    } else MainView.invalidData();
+            }
+
+        }
+        return customerIdSelected;
+    }
 
     public static void createNewAccount(Branch branch, AccountType accountType) {
 
-        Account newAccount = new Account();
-        Client client = new Client();
 
 
-        Account lastAccount = accountDAO.getLastAccount();
-        Integer ultimoNumeroCuenta = lastAccount.getControlNumber();
-        Integer nuevoNumCuenta = ultimoNumeroCuenta + 1;
-/*
-        String iban; //= account.getBranch().getBank().getCountry().getCode();
-        Integer code = account.getBranch().getBank().getCode();
-        Integer codeBranch = account.getBranch().getCode();
-        Integer codeControl = account.getAccount_type().getCode_control();
-        newAccount.setBranch(account.getBranch());
-        newAccount.setAccount_type(account.getAccount_type());
-        newAccount.setControlNumber(nuevoNumCuenta);
 
-        iban = IbanGenerator.Generation(account.getBranch().getBank().getCountry().getCode(), code, codeBranch, account.getAccount_type().getCode_control(), codeControl);
-        newAccount.setNumber(iban);
 
-        Boolean resultado = accountDAO.save(newAccount);
-        if (resultado)
-            view.showNewAccount(newAccount);
-
-        else {
-            view.newAccountCanceled();
-        }*/
     }
 
     private HashMap<String, String> generateNewNumberAccount(Branch branch, AccountType accountType) {
@@ -113,7 +148,7 @@ public class AccountController {
                 Boolean isDelete = accountDAO.delete(id);
 
                 if (isDelete)
-                    view.showDeleteAccount(account.getNumber());
+                    view.showDeleteAccount(account.getId());
             } else
                 view.newAccountCanceled();
 
@@ -121,4 +156,9 @@ public class AccountController {
 
 
     }
+
+    Account lastAccount = accountDAO.getLastAccount();
+    Integer ultimoNumeroCuenta = lastAccount.getControlNumber();
+    Integer nuevoNumCuenta = ultimoNumeroCuenta + 1;
+/*
 }

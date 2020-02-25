@@ -90,16 +90,16 @@ public class AccountController {
         //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
         Integer bankCode = branch.getBank().getCode();
         //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
-        Integer branchCode = branch.getCode();
+        //Integer branchCode = branch.getCode();
         Integer accountTypeCode = accountType.getCode_control();
         Integer codigoCuentaCliente = newControlNumberAccount;
 
         assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
 
-        String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
+        // String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
 
 
-        numberData.put("number", numberAccount);
+        //numberData.put("number", numberAccount);
         numberData.put("control", String.valueOf(newControlNumberAccount));
 
         return numberData;

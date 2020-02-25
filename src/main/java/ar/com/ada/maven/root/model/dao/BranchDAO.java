@@ -5,6 +5,7 @@ import ar.com.ada.maven.root.model.dto.Bank;
 import ar.com.ada.maven.root.model.dto.Branch;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class BranchDAO implements DAO<Branch> {
     private BankDAO bankDAO = new BankDAO(false);
@@ -16,24 +17,27 @@ public class BranchDAO implements DAO<Branch> {
         this.willCloseConnection = willCloseConnection;
     }
 
+
+
     @Override
-    public ArrayList<Branch> findAll() {
-        String sql = "SELECT * FROM Branch";
-        ArrayList<Branch> sucursales = new ArrayList<>();
+    public List<Branch> findAll() {
+        String sql = "SELECT * FROM Client";
+        List<Branch> branches = new ArrayList<>();
+
         try {
             Connection connection = DBConection.getConnection();
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Bank bank = bankDAO.findById(rs.getInt("bank_id"));
-                Branch sucursal = new Branch(rs.getInt("id"), rs.getString("name"), rs.getInt("code"), bank);
-                sucursales.add(sucursal);
+                Bank banco = bankDAO.findById(rs.getInt("bank_id"));
+                Branch branch = new Branch(rs.getInt("id"), rs.getString("name"), rs.getString("code"), banco);
+                branches.add(branch);
             }
             connection.close();
         } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
-        return sucursales;
+        return branches;
     }
 
     @Override
@@ -47,7 +51,7 @@ public class BranchDAO implements DAO<Branch> {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 Bank banco = bankDAO.findById(rs.getInt("bank_id"));
-                branch = new Branch(rs.getInt("id"), rs.getString("name"), rs.getInt("code"), banco);
+                branch = new Branch(rs.getInt("id"), rs.getString("name"), rs.getString("code"), banco);
             }
             if (willCloseConnection)
                 connection.close();
@@ -59,7 +63,7 @@ public class BranchDAO implements DAO<Branch> {
 
     @Override
     public Boolean save(Branch branch) {
-        String sql = "INSERT INTO Branch (nombre) VALUES (?)";
+        String sql = "INSERT INTO Branch (name) VALUES (?)";
         int hasSave = 0;
         try {
             Connection connection = DBConection.getConnection();
@@ -75,7 +79,7 @@ public class BranchDAO implements DAO<Branch> {
 
     @Override
     public Boolean update(Branch branch, Integer id) {
-        String sql = "UPDATE Branch set nombre = ? where id = ?";
+        String sql = "UPDATE Branch set name = ? where id = ?";
         int hasUpdate = 0;
         try {
             Connection connection = DBConection.getConnection();
@@ -104,8 +108,44 @@ public class BranchDAO implements DAO<Branch> {
         }
         return hasDelete == 1;
     }
-}
 
+    public List<Branch> findAll(int limit, int offset) {
+        String sql = "SELECT * FROM Client LIMIT ? OFFSET ?";
+        List<Branch> branches = new ArrayList<>();
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Bank banco = bankDAO.findById(rs.getInt("bank_id"));
+                Branch branch = new Branch(rs.getInt("id"), rs.getString("name"), rs.getString("code"), banco);
+                branches.add(branch);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println("CONNECTION ERROR:" + e.getMessage());
+        }
+        return branches;
+    }
+
+    public int getTotalBranchs() {
+        String sql = "SELECT COUNT(*) AS total FROM Branch";
+        int total = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next())  total = rs.getInt("total");
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return total;
+    }
+}
 
 
 

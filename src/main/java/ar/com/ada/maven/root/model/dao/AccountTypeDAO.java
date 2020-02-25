@@ -19,7 +19,7 @@ public class AccountTypeDAO implements DAO<AccountType> {
     }
 
     @Override
-    public Collection<AccountType> findAll() {
+    public List<AccountType> findAll() {
         String sql = "SELECT * FROM Account_type";
         List<AccountType> account_types = new ArrayList<>();
 
@@ -111,5 +111,41 @@ public class AccountTypeDAO implements DAO<AccountType> {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return hasDelete == 1;
+    }
+
+    public List<AccountType> findAll(int limit, int offset) {
+        String sql = "SELECT * FROM Client LIMIT ? OFFSET ?";
+        List<AccountType> accountTypes = new ArrayList<>();
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, limit);
+            preparedStatement.setInt(2, offset);
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                AccountType accountType = new AccountType(rs.getInt("id"), rs.getString("name"), rs.getInt("code_control"));
+                accountTypes.add(accountType);
+            }
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println("CONNECTION ERROR:" + e.getMessage());
+        }
+        return accountTypes;
+    }
+
+    public int getTotalAccountTypes() {
+        String sql = "SELECT COUNT(*) AS total FROM Account_type ";
+        int total = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next())  total = rs.getInt("total");
+            connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return total;
     }
 }

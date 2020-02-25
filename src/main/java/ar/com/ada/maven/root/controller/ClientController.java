@@ -76,7 +76,7 @@ public class ClientController {
             view.updateClientCanceled();
     }
 
-    private static int listClientsPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
+    public static int listClientsPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
         int limit = 4, currentPage = 0, totalClients, totalPages, clientIdSelected = 0;
         List<Client> clients;
         List<String> paginator;

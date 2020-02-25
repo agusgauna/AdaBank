@@ -2,6 +2,7 @@ package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Account;
 import ar.com.ada.maven.root.utils.CommandLineTable;
+import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.utils.Singletone;
 
 import java.util.HashMap;
@@ -95,15 +96,29 @@ public class AccountView {
         Singletone.pressEnterKeyToContinue();
     }
 
-    public void accountAlreadyExist(Integer number){
+    public void accountAlreadyExist(String number){
         System.out.println("Este número de cuenta ya existe en la base de datos");
         Singletone.pressEnterKeyToContinue();
     }
 
+    public Integer accountIdSelected(String actionOption) {
+        switch (actionOption) {
+            case Paginator.EDITH:
+                actionOption = "editar";
+                break;
+            case Paginator.DELETE:
+                actionOption = "eliminar";
+                break;
+            case Paginator.SELECT:
+                actionOption = "elejir";
+                break;
+        }
+        System.out.println("Ingrese el numero de ID del cliente para " + actionOption + " ó 0 para cancelar: \n");
 
-    public void newAccountCanceled() {
-        System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
+        return Integer.valueOf( Singletone.getInputInteger());
     }
+
+
 
     public String printAccountsPerPage(List<Account> accounts, List<String> paginator, String optionEdithOrDelete, boolean showHeader) {
         if (showHeader) {
@@ -137,8 +152,10 @@ public class AccountView {
         return Singletone.getInputString();
     }
 
- 
 
+    public void newAccountCanceled() {
+        System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
+    }
 
 }
 

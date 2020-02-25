@@ -24,7 +24,7 @@ public class AccountController {
     private static ClientDAO clientDAO = new ClientDAO(false);
     private static AccountTypeDAO accountTypeDAO = new AccountTypeDAO(false);
     private static BranchDAO branchDAO = new BranchDAO(false);
-    private void assertEquals(String s, String padStart) {
+    private static void assertEquals(String s, String padStart) {
     }
 
     public static void init() {
@@ -66,7 +66,7 @@ public class AccountController {
             paginator = Paginator.buildPaginator(currentPage, totalPages);
 
             accounts = accountDAO.findAll(limit, currentPage * limit);
-            String choice = view.printAllAccounts(accounts, paginator, optionSelectEdithOrDelete, showHeader); //*revisar
+            String choice = view.printAccountsPerPage(accounts, paginator, optionSelectEdithOrDelete, showHeader);
 
             switch (choice) {
                 case "i":
@@ -88,7 +88,7 @@ public class AccountController {
                 case "e":
                 case "E":
                     if (optionSelectEdithOrDelete != null) {
-                        customerIdSelected = view.clientIdSelected(optionSelectEdithOrDelete);
+                        customerIdSelected = view.accountIdSelected(optionSelectEdithOrDelete);
                         shouldGetOut = true;
                     }
                     break;
@@ -107,8 +107,41 @@ public class AccountController {
         return customerIdSelected;
     }
 
-    public static void createNewAccount(Branch branch, AccountType accountType) {
+    public static void createNewAccount(Branch branch, AccountType accountType, Client client) {
 
+         String number;
+         number = assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
+                 
+
+        Integer clientId = ClientController.listClientsPerPage(Paginator.SELECT, false);
+        Integer accountTypeId = AccountTypeController.listAccountsTypePerPage(Paginator.SELECT, false);
+        Integer branchId = BranchController.listBranchsPerPage(Paginator.SELECT, false);
+
+
+
+        if (clientId != 0 && accountTypeId != 0 && branchId != 0) {
+
+        }
+
+        Account accountByNumber = accountDAO.findByNumberAccount(number); //   parametro
+            Client clienteById = clientDAO.findById(clientId);
+            AccountType accountTypeById = accountTypeDAO.findById(accountTypeId);
+            Branch branchById = branchDAO.findById(branchId);
+
+            Account newAccount = new Account(/*nuevoNumCuenta, clienteById, accountTypeById, branchById*/); // q parametros??
+
+            if (accountByNumber != null && accountByNumber.equals(newAccount)) {
+                view.accountAlreadyExist(newAccount.getNumber());
+            } else {
+                Boolean isSaved = accountDAO.save(newAccount);
+                if (isSaved) {
+                    view.showNewAccount(newAccount);
+            }else {
+            view.newAccountCanceled();
+        }
+
+
+    }
 
 
 
@@ -157,8 +190,6 @@ public class AccountController {
 
     }
 
-    Account lastAccount = accountDAO.getLastAccount();
-    Integer ultimoNumeroCuenta = lastAccount.getControlNumber();
-    Integer nuevoNumCuenta = ultimoNumeroCuenta + 1;
+
 /*
 }

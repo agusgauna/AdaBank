@@ -2,16 +2,24 @@ package ar.com.ada.maven.root.controller;
 
 import ar.com.ada.maven.root.model.dao.AccountDAO;
 import ar.com.ada.maven.root.model.dto.Account;
+import ar.com.ada.maven.root.model.dto.AccountType;
+import ar.com.ada.maven.root.model.dto.Branch;
+import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.IbanGenerator;
 import ar.com.ada.maven.root.view.AccountView;
 import ar.com.ada.maven.root.view.MainView;
+import com.google.common.base.Strings;
 
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class AccountController {
     private static AccountView view = new AccountView();
     private static AccountDAO accountDAO = new AccountDAO(false);
 
+    private void assertEquals(String s, String padStart) {
+    }
 
     public static void init() {
         boolean out = false;
@@ -23,10 +31,10 @@ public class AccountController {
                     printAllAccounts();
                     break;
                 case 2:
-            //        createNewAccount();
+              //      createNewAccount();
                     break;
                 case 3:
-            //        deleteAccount();
+                  //  deleteAccount();
                     break;
                 case 4:
                     out = true;
@@ -42,13 +50,17 @@ public class AccountController {
     }
 
 
-    public static void createNewAccount(Account account) {
+
+    public static void createNewAccount() {
 
         Account newAccount = new Account();
+        Client client = new Client();
+
+
         Account lastAccount = accountDAO.getLastAccount();
         Integer ultimoNumeroCuenta = lastAccount.getControlNumber();
         Integer nuevoNumCuenta = ultimoNumeroCuenta + 1;
-
+/*
         String iban; //= account.getBranch().getBank().getCountry().getCode();
         Integer code = account.getBranch().getBank().getCode();
         Integer codeBranch = account.getBranch().getCode();
@@ -66,7 +78,49 @@ public class AccountController {
 
         else {
             view.newAccountCanceled();
+        }*/
+    }
+
+    private HashMap<String, String> generateNewNumberAccount(Branch branch, AccountType accountType) {
+        HashMap<String, String> numberData = new HashMap<>();
+        Account lastAccount = accountDAO.getLastAccount();
+        Integer newControlNumberAccount = lastAccount.getControlNumber() + 1;
+
+        String iban = branch.getBank().getCountry().getCode();
+        //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
+        Integer bankCode = branch.getBank().getCode();
+        //TODO transformar este tipo de dato en string para reconocer los ceros a la izquierda
+        Integer branchCode = branch.getCode();
+        Integer accountTypeCode = accountType.getCode_control();
+        Integer codigoCuentaCliente = newControlNumberAccount;
+
+        assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
+
+        String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
+
+
+        numberData.put("number", numberAccount);
+        numberData.put("control", String.valueOf(newControlNumberAccount));
+
+        return numberData;
+    }
+
+    private static void deleteAccount(int id) {
+        Account account = accountDAO.findById(id);
+        if (account != null) {
+            Boolean toDelete = view.getResponseToDelete(account);
+            if (toDelete) {
+
+                Boolean isDelete = accountDAO.delete(id);
+
+                if (isDelete)
+                    view.showDeleteAccount(account.getControlNumber());
+            } else
+                view.newAccountCanceled();
+
         }
+
+
     }
 
 }

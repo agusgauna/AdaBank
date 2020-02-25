@@ -177,4 +177,18 @@ public class AccountDAO implements DAO<Account> {
         }
         return account;
     }
+    public int getTotalAccounts() {
+        String sql = "SELECT COUNT(*) AS total FROM Account";
+        int totalAccounts = 0;
+        try {
+            Connection connection = DBConection.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+            if (rs.next()) totalAccounts = rs.getInt("total");
+            connection.close();
+        }catch (SQLException e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+        return totalAccounts;
+    }
 }

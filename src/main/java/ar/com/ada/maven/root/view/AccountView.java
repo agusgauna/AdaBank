@@ -1,6 +1,7 @@
 package ar.com.ada.maven.root.view;
 
 import ar.com.ada.maven.root.model.dto.Account;
+import ar.com.ada.maven.root.utils.CommandLineTable;
 import ar.com.ada.maven.root.utils.Singletone;
 
 import java.util.HashMap;
@@ -102,6 +103,38 @@ public class AccountView {
 
     public void newAccountCanceled() {
         System.out.println(" Se ha cancelado el proceso de apertura de cuenta");
+    }
+
+    public String printAccountsPerPage(List<Account> accounts, List<String> paginator, String optionEdithOrDelete, boolean showHeader) {
+        if (showHeader) {
+            System.out.println("\n+----------------------------------------+");
+            System.out.println("\t\t ADA BANK :: Modulo Cuentas :: Lista de Cuentas");
+            System.out.println("+----------------------------------------+\n");
+        }
+
+        CommandLineTable st = new CommandLineTable();
+        st.setShowVerticalLines(true);
+
+        st.setHeaders("ID", "CUENTA", "SALDO", "CLIENTE", "TIPO DE CUENTA", "SUCURSAL");
+        accounts.forEach(accountDTO ->
+                st.addRow(
+                        accountDTO.getId().toString(),
+                        accountDTO.getNumber(),
+                        String.valueOf(accountDTO.getBalance()),
+                        accountDTO.getClient().toString(),
+                        accountDTO.getAccount_type().toString(),
+                        accountDTO.getBranch().toString())
+        );
+        st.print();
+
+        if (optionEdithOrDelete != null && !optionEdithOrDelete.isEmpty())
+            paginator.set(paginator.size() - 2, optionEdithOrDelete);
+
+        System.out.println("\n+----------------------------------------+");
+        paginator.forEach(page -> System.out.print(page + " "));
+        System.out.println("\n+----------------------------------------+");
+
+        return Singletone.getInputString();
     }
 
  

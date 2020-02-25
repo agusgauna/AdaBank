@@ -5,12 +5,12 @@ public class Branch {
 
     private Integer id;
     private String name;
-    private Integer code;
+    private String code;
     private Bank bank;
 
     public Branch() { }
 
-    public Branch(Integer id, String name, Integer code, Bank bank) {
+    public Branch(Integer id, String name, String code, Bank bank) {
         this.id = id;
         this.name = name;
         this.code = code;
@@ -33,11 +33,11 @@ public class Branch {
         this.name = name;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

@@ -192,4 +192,29 @@ public class AccountDAO implements DAO<Account> {
         }
         return totalAccounts;
     }
+
+
+    public Account findByNumberAccount(String number) {
+        String sql = "SELECT * FROM Account WHERE number = ?";
+        Account account = null;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, number);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                Client cliente = clientDAO.findById(rs.getInt("Cliente_id"));
+                AccountType accountType = account_typeDAO.findById(rs.getInt("Account_type_id"));
+                Branch branch = branchDAO.findById(rs.getInt("Branch_id"));
+                Account cuentas = new Account(rs.getInt("id"), rs.getString("currency"), rs.getString("number"),
+                        rs.getDouble("balance"), rs.getInt("controlNumber"), cliente, accountType, branch);            }
+
+            if (willCloseConnection) connection.close();
+        } catch (Exception e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+        }
+
+        return account;
+    }
+
 }

@@ -43,8 +43,6 @@ public class AccountController {
 
 
     public static void createNewAccount(Account account) {
-
-        Account newAccount = new Account();
         Account lastAccount = accountDAO.getLastAccount();
         Integer ultimoNumeroCuenta = lastAccount.getControlNumber();
         Integer nuevoNumCuenta = ultimoNumeroCuenta + 1;

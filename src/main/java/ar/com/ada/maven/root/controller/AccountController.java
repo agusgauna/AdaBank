@@ -36,7 +36,7 @@ public class AccountController {
                     printAllAccounts();
                     break;
                 case 2:
-                    //      createNewAccount();
+                   // createNewAccount();
                     break;
                 case 3:
                     deleteAccount();
@@ -108,18 +108,16 @@ public class AccountController {
     public static void createNewAccount(Client client, AccountType accountType, Branch branch, Number number) {
 
 
-        Account newAccount = new Account(client, accountType, branch, number);
-        accountDAO.save(newAccount);
-
-
         Integer clientId = ClientController.listClientsPerPage(Paginator.SELECT, false);
         Integer accountTypeId = AccountTypeController.listAccountTypesPerPage(Paginator.SELECT, false);
         Integer branchId = BranchController.listBranchPerPage(Paginator.SELECT, false);
 
+        Account newAccount = new Account(client, accountType, branch, number);
+        Boolean cuentanueva = accountDAO.save(newAccount);
+
 
         if (clientId != 0 && accountTypeId != 0 && branchId != 0) {
         }
-
 
         if (newAccount != null && newAccount.equals(newAccount)) {
             view.accountAlreadyExist(newAccount.getNumber());

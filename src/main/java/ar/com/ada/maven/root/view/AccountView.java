@@ -85,7 +85,7 @@ public class AccountView {
         Singletone.pressEnterKeyToContinue();
     }
 
-    public void showDeleteAccount(Integer number) {
+    public void showDeleteAccount(String number) {
         System.out.println("La cuenta " + number + " se ha eliminado exitosamente");
         Singletone.pressEnterKeyToContinue();
     }

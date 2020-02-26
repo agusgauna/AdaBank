@@ -8,14 +8,12 @@ import ar.com.ada.maven.root.model.dto.Account;
 import ar.com.ada.maven.root.model.dto.AccountType;
 import ar.com.ada.maven.root.model.dto.Branch;
 import ar.com.ada.maven.root.model.dto.Client;
-import ar.com.ada.maven.root.utils.IbanGenerator;
 import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.view.AccountView;
 import ar.com.ada.maven.root.view.MainView;
 import com.google.common.base.Strings;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class AccountController {
@@ -24,6 +22,7 @@ public class AccountController {
     private static ClientDAO clientDAO = new ClientDAO(false);
     private static AccountTypeDAO accountTypeDAO = new AccountTypeDAO(false);
     private static BranchDAO branchDAO = new BranchDAO(false);
+
     private static void assertEquals(String s, String padStart) {
     }
 
@@ -37,10 +36,10 @@ public class AccountController {
                     printAllAccounts();
                     break;
                 case 2:
-              //      createNewAccount();
+                    //      createNewAccount();
                     break;
                 case 3:
-                  //  deleteAccount();
+                    deleteAccount();
                     break;
                 case 4:
                     out = true;
@@ -106,10 +105,11 @@ public class AccountController {
         return customerIdSelected;
     }
 
-    public static void createNewAccount(Branch branch, AccountType accountType, Client client) {
+    public static void createNewAccount(Client client, AccountType accountType, Branch branch, Number number) {
 
-         String number;
-         number = assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
+
+        Account newAccount = new Account(client, accountType, branch, number);
+        accountDAO.save(newAccount);
 
 
         Integer clientId = ClientController.listClientsPerPage(Paginator.SELECT, false);
@@ -118,28 +118,21 @@ public class AccountController {
 
 
         if (clientId != 0 && accountTypeId != 0 && branchId != 0) {
-
         }
 
-        Account accountByNumber = accountDAO.findByNumberAccount(number); //   parametro
-            Client clienteById = clientDAO.findById(clientId);
-            AccountType accountTypeById = accountTypeDAO.findById(accountTypeId);
-            Branch branchById = branchDAO.findById(branchId);
 
-            Account newAccount = new Account(/*nuevoNumCuenta, clienteById, accountTypeById, branchById*/); // faltan parametros
-
-            if (accountByNumber != null && accountByNumber.equals(newAccount)) {
-                view.accountAlreadyExist(newAccount.getNumber());
+        if (newAccount != null && newAccount.equals(newAccount)) {
+            view.accountAlreadyExist(newAccount.getNumber());
+        } else {
+            Boolean isSaved = accountDAO.save(newAccount);
+            if (isSaved) {
+                view.showNewAccount(newAccount);
             } else {
-                Boolean isSaved = accountDAO.save(newAccount);
-                if (isSaved) {
-                    view.showNewAccount(newAccount);
-            }else {
-            view.newAccountCanceled();
+                view.newAccountCanceled();
+            }
+
+
         }
-
-
-    }
 
     }
 
@@ -151,13 +144,13 @@ public class AccountController {
         String iban = branch.getBank().getCountry().getCode();
         Integer bankCode = branch.getBank().getCode();
 
-        Integer branchCode = branch.getCode();
+        String branchCode = branch.getCode();
         Integer accountTypeCode = accountType.getCode_control();
         Integer codigoCuentaCliente = newControlNumberAccount;
 
-        assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
+        String padStart = Strings.padStart("123456", 10, '0');
 
-         String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
+        String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
 
 
         numberData.put("number", numberAccount);
@@ -166,52 +159,48 @@ public class AccountController {
         return numberData;
     }
 
-    private static Account getAccountToDelete(String optionDelete) {
+    private static Account getAccountToEdithOrDelete(String optionEdithOrDelete) {
         boolean hasExitWhile = false;
-        Account accountToDelete = null;
+        Account accountToEdithOrDelete = null;
 
-        String actionInfo = Paginator.DELETE.equals(optionDelete) ? "Eliminar": "Eliminar";
+        String actionInfo = Paginator.EDITH.equals(optionEdithOrDelete) ? "Editar" : "Eliminar";
 
         view.selectAccountIdToEdithOrDeleteInfo(actionInfo);
 
-        int accountIdToDelete = printAccountsPerPage(optionDelete, true);
+        int accountIdToEdith = printAccountsPerPage(optionEdithOrDelete, true);
 
-        if (accountIdToDelete != 0) {
+        if (accountIdToEdith != 0) {
             while (!hasExitWhile) {
-                accountToDelete = accountDAO.findById(accountIdToDelete);
-                if (accountToDelete == null) {
-                    view.accountNotExist(accountIdToDelete);
-                    accountIdToDelete = view.clientIdSelected(optionDelete);
-                    hasExitWhile = (accountIdToDelete == 0);
+                accountToEdithOrDelete = accountDAO.findById(accountIdToEdith);
+                if (accountToEdithOrDelete == null) {
+                    view.accountNotExist(accountIdToEdith);
+                    accountIdToEdith = view.accountIdSelected(optionEdithOrDelete);
+                    hasExitWhile = (accountIdToEdith == 0);
                 } else {
                     hasExitWhile = true;
                 }
             }
         }
 
-        return accountToDelete;
+        return accountToEdithOrDelete;
     }
-    private static void deleteAccount(int id) {
-        Account account = accountDAO.findById(id);
-        if (account != null) {
-            Boolean toDelete = view.getResponseToDelete(account);
+
+    private static void deleteAccount() {
+        Account accountToDelete = getAccountToEdithOrDelete(Paginator.DELETE);
+
+        if (accountToDelete != null) {
+            Boolean toDelete = view.getResponseToDelete(accountToDelete);
             if (toDelete) {
+                Boolean isDeleted = accountDAO.delete(accountToDelete.getId());
 
-                Boolean isDelete = accountDAO.delete(id);
+                if (isDeleted)
+                    view.showDeleteAccount(accountToDelete.getNumber());
+            }
 
-                if (isDelete)
-
-                    view.showDeleteAccount(account.getId());
-
-            } else
-                view.newAccountCanceled();
-
+        } else {
+            view.deleteAccountCanceled();
         }
-
-
     }
-
-    
 
 
 }

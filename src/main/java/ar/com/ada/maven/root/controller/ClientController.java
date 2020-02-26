@@ -133,7 +133,6 @@ public class ClientController {
             String nameToUpdate = view.getNameToUpdate(clientById);
             String lastNameToUpdate = view.getLastNameToUpdate(clientById);
             if (!nameToUpdate.isEmpty() && !lastNameToUpdate.isEmpty()) {
-                clientDAO.findByName(nameToUpdate, lastNameToUpdate);
                 clientById.setName(nameToUpdate);
                 clientById.setLastName(lastNameToUpdate);
 

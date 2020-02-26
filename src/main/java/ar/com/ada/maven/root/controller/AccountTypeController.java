@@ -11,7 +11,7 @@ import java.util.List;
 public class AccountTypeController {
     private static AccountTypeView view = new AccountTypeView();
     private static AccountTypeDAO accountTypeDAO = new AccountTypeDAO();
-    private static int listAccountTypesPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
+    public static int listAccountTypesPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
         int limit = 4, currentPage = 0, totalAccountType, totalPages, accountTypeIdSelected = 0;
         List<AccountType> accountTypes;
         List<String> paginator;
@@ -62,4 +62,5 @@ public class AccountTypeController {
         }
         return accountTypeIdSelected;
     }
+
 }

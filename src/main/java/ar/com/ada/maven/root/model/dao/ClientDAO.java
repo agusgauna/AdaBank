@@ -48,10 +48,9 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
+                cliente = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
 
-            if (willCloseConnection) ;
-            connection.close();
+            if (willCloseConnection) connection.close();
         } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }

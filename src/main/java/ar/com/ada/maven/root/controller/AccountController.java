@@ -109,12 +109,12 @@ public class AccountController {
     public static void createNewAccount(Branch branch, AccountType accountType, Client client) {
 
          String number;
-         number = assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
+        // number = assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
                  
 
         Integer clientId = ClientController.listClientsPerPage(Paginator.SELECT, false);
-        Integer accountTypeId = AccountTypeController.listAccountsTypePerPage(Paginator.SELECT, false);
-        Integer branchId = BranchController.listBranchsPerPage(Paginator.SELECT, false);
+        Integer accountTypeId = AccountTypeController.listAccountTypesPerPage(Paginator.SELECT, false);
+        Integer branchId = BranchController.listBranchPerPage(Paginator.SELECT, false);
 
 
 
@@ -122,16 +122,16 @@ public class AccountController {
 
         }
 
-        Account accountByNumber = accountDAO.findByNumberAccount(number); //   parametro
+      //  Account accountByNumber = accountDAO.findByNumberAccount(number); //   parametro
             Client clienteById = clientDAO.findById(clientId);
             AccountType accountTypeById = accountTypeDAO.findById(accountTypeId);
             Branch branchById = branchDAO.findById(branchId);
 
             Account newAccount = new Account(/*nuevoNumCuenta, clienteById, accountTypeById, branchById*/); // q parametros??
 
-            if (accountByNumber != null && accountByNumber.equals(newAccount)) {
+      //      if (accountByNumber != null && accountByNumber.equals(newAccount)) {
                 view.accountAlreadyExist(newAccount.getNumber());
-            } else {
+      //      } else {
                 Boolean isSaved = accountDAO.save(newAccount);
                 if (isSaved) {
                     view.showNewAccount(newAccount);
@@ -145,7 +145,7 @@ public class AccountController {
 
 
 
-    }
+
 
     private HashMap<String, String> generateNewNumberAccount(Branch branch, AccountType accountType) {
         HashMap<String, String> numberData = new HashMap<>();

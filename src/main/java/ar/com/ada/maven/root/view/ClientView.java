@@ -98,9 +98,6 @@ public class ClientView {
         System.out.print("Ingrese el nuevo nombre del cliente para actualizar " );
         System.out.println("(para cancelar, no ingresar datos y presionar enter)");
 
-        Scanner scanner = Singletone.getInstance();
-        scanner.nextLine();
-
         return String.valueOf(Singletone.getInputString());
     }
 
@@ -111,9 +108,6 @@ public class ClientView {
         System.out.print("Presione enter e ingrese el nuevo apellido del cliente para actualizar ");
         System.out.println("(para cancelar, no ingresar datos y presionar enter)");
 
-        Scanner scanner = Singletone.getInstance();
-        scanner.nextLine();
-
         return String.valueOf(Singletone.getInputString());
     }
 
@@ -123,7 +117,7 @@ public class ClientView {
     }
 
     public void showUpdateClient(Client client) {
-        System.out.println("El cliente " + client.getLastName() + ", " + client.getName() + ". DNI: " +client.getDoc()+ "se ha actualizado exitosamente");
+        System.out.println("El cliente " + client.getLastName() + ", " + client.getName() + ". DNI: " +client.getDoc()+ " se ha actualizado exitosamente");
         Singletone.pressEnterKeyToContinue();
     }
 
@@ -140,17 +134,7 @@ public class ClientView {
                 break;
         }
         System.out.println("Ingrese el numero de ID del cliente para " + actionOption + " ó 0 para cancelar: ");
-
-        while (true) {
-            try {
-                System.out.print("? ");
-                int choice = scanner.nextInt();
-                return choice;
-            } catch (InputMismatchException e) {
-                System.out.println("Error, debe ingresar un id valido");
-                scanner.next();
-            }
-        }
+        return Integer.valueOf(Singletone.getInputInteger());
     }
 
     public Boolean getResponseToDelete(Client client) {
@@ -162,22 +146,7 @@ public class ClientView {
         System.out.println("| 1 | Si");
         System.out.println("| 2 | No");
 
-        scanner.nextLine();
-
-        while (true) {
-            try {
-                System.out.print("? ");
-                String name = scanner.nextLine().trim();
-                while (!name.matches("^[1-2]+$") && !name.isEmpty()) {
-                    System.out.println("Error, debe ingresar una opcion valida");
-                    name = scanner.nextLine();
-                }
-                return "1".equals(name);
-            } catch (InputMismatchException e) {
-                System.out.println("Error, debe ingresar una opcion valida");
-                scanner.next();
-            }
-        }
+        return (Integer.valueOf(Singletone.getInputInteger()) == 1);
     }
 
     public void showDeleteClient(String lastName, String name) {

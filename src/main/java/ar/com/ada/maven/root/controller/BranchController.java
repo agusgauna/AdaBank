@@ -12,7 +12,7 @@ public class BranchController {
     private static BranchView view = new BranchView();
     private static BranchDAO branchDAO = new BranchDAO();
 
-    private static int listBranchPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
+    public static int listBranchPerPage(String optionSelectEdithOrDelete, boolean showHeader) {
         int limit = 4, currentPage = 0, totalBranchs, totalPages, branchIdSelected = 0;
         List<Branch> branchs;
         List<String> paginator;

@@ -113,9 +113,8 @@ public class AccountController {
 
 
         Integer clientId = ClientController.listClientsPerPage(Paginator.SELECT, false);
-        Integer accountTypeId = AccountTypeController.listAccountsTypePerPage(Paginator.SELECT, false);
-        Integer branchId = BranchController.listBranchsPerPage(Paginator.SELECT, false);
-
+        Integer accountTypeId = AccountTypeController.listAccountTypesPerPage(Paginator.SELECT, false);
+        Integer branchId = BranchController.listBranchPerPage(Paginator.SELECT, false);
 
 
         if (clientId != 0 && accountTypeId != 0 && branchId != 0) {
@@ -127,7 +126,7 @@ public class AccountController {
             AccountType accountTypeById = accountTypeDAO.findById(accountTypeId);
             Branch branchById = branchDAO.findById(branchId);
 
-            Account newAccount = new Account(/*nuevoNumCuenta, clienteById, accountTypeById, branchById*/); // q parametros??
+            Account newAccount = new Account(/*nuevoNumCuenta, clienteById, accountTypeById, branchById*/); // faltan parametros
 
             if (accountByNumber != null && accountByNumber.equals(newAccount)) {
                 view.accountAlreadyExist(newAccount.getNumber());
@@ -158,10 +157,10 @@ public class AccountController {
 
         assertEquals("0000123456", Strings.padStart("123456", 10, '0'));
 
-        // String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
+         String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
 
 
-        //numberData.put("number", numberAccount);
+        numberData.put("number", numberAccount);
         numberData.put("control", String.valueOf(newControlNumberAccount));
 
         return numberData;
@@ -175,7 +174,7 @@ public class AccountController {
 
         view.selectAccountIdToEdithOrDeleteInfo(actionInfo);
 
-        int accountIdToDelete = listAccountsPerPage(optionDelete, true);
+        int accountIdToDelete = printAccountsPerPage(optionDelete, true);
 
         if (accountIdToDelete != 0) {
             while (!hasExitWhile) {
@@ -211,6 +210,8 @@ public class AccountController {
 
 
     }
+
+    
 
 
 }

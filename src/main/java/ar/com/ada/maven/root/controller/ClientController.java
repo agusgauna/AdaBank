@@ -1,6 +1,8 @@
 package ar.com.ada.maven.root.controller;
 
+import ar.com.ada.maven.root.model.dao.AccountDAO;
 import ar.com.ada.maven.root.model.dao.ClientDAO;
+import ar.com.ada.maven.root.model.dto.Account;
 import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.view.ClientView;
@@ -13,7 +15,7 @@ import java.util.List;
 public class ClientController {
     private static ClientView view = new ClientView();
     private static ClientDAO clientDAO = new ClientDAO();
-
+    private static AccountDAO accountDAO = new AccountDAO();
 
     public static void init() {
         boolean shouldGetOut = false;
@@ -183,7 +185,9 @@ public class ClientController {
 
         if (clientToDelete != null) {
             Boolean toDelete = view.getResponseToDelete(clientToDelete);
+
             if (toDelete) {
+                ArrayList<Account> accounts = accountDAO.findAllAccountByClientId(clientToDelete.getId());
                 Boolean isDeleted = clientDAO.delete(clientToDelete.getId());
 
                 if (isDeleted)

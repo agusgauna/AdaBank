@@ -23,10 +23,10 @@ public class AccountController {
                     printAllAccounts();
                     break;
                 case 2:
-                    createNewAccount();
+                    //createNewAccount();
                     break;
                 case 3:
-                    deleteAccount();
+                    //deleteAccount();
                     break;
                 case 4:
                     out = true;

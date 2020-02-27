@@ -62,4 +62,5 @@ public class AccountTypeController {
         }
         return accountTypeIdSelected;
     }
+
 }

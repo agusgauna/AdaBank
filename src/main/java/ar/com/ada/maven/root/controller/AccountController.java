@@ -1,9 +1,6 @@
 package ar.com.ada.maven.root.controller;
 
 import ar.com.ada.maven.root.model.dao.AccountDAO;
-import ar.com.ada.maven.root.model.dao.AccountTypeDAO;
-import ar.com.ada.maven.root.model.dao.BranchDAO;
-import ar.com.ada.maven.root.model.dao.ClientDAO;
 import ar.com.ada.maven.root.model.dto.Account;
 import ar.com.ada.maven.root.model.dto.AccountType;
 import ar.com.ada.maven.root.model.dto.Branch;
@@ -11,20 +8,20 @@ import ar.com.ada.maven.root.model.dto.Client;
 import ar.com.ada.maven.root.utils.Paginator;
 import ar.com.ada.maven.root.view.AccountView;
 import ar.com.ada.maven.root.view.MainView;
-import com.google.common.base.Strings;
 
 import java.util.HashMap;
+
 import java.util.List;
 
 public class AccountController {
+
     private static AccountView view = new AccountView();
     private static AccountDAO accountDAO = new AccountDAO(false);
     private static ClientDAO clientDAO = new ClientDAO(false);
     private static AccountTypeDAO accountTypeDAO = new AccountTypeDAO(false);
     private static BranchDAO branchDAO = new BranchDAO(false);
 
-    private static void assertEquals(String s, String padStart) {
-    }
+ 
 
     public static void init() {
         boolean out = false;
@@ -50,6 +47,7 @@ public class AccountController {
     }
 
     private static void printAllAccounts() {
+
         printAccountsPerPage(null, true);
     }
 
@@ -151,6 +149,11 @@ public class AccountController {
         String numberAccount = iban + bankCode + branchCode + accountTypeCode + newControlNumberAccount;
 
 
+        Boolean resultado = accountDAO.save(newAccount);
+        if (resultado)
+            view.showNewAccount(newAccount);
+
+
         numberData.put("number", numberAccount);
         numberData.put("control", String.valueOf(newControlNumberAccount));
 
@@ -198,7 +201,7 @@ public class AccountController {
         } else {
             view.deleteAccountCanceled();
         }
-    }
 
+    }
 
 }

@@ -48,10 +48,9 @@ public class ClientDAO implements DAO<Client> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next())
-                cliente = new Client(rs.getInt(id), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
+                cliente = new Client(rs.getInt("id"), rs.getString("name"), rs.getString("last_name"), rs.getString("type_doc"), rs.getInt("doc"));
 
-            if (willCloseConnection) ;
-            connection.close();
+            if (willCloseConnection) connection.close();
         } catch (Exception e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
@@ -100,32 +99,17 @@ public class ClientDAO implements DAO<Client> {
 
     @Override
     public Boolean update(Client client, Integer id) {
-        String sql = "UPDATE Client set name = ? where id = ? ";
+        String sql = "UPDATE Client set name = ?, last_name = ? where id = ? ";
         int hasUpdate = 0;
         try {
             Connection connection = DBConection.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, client.getName());
-            preparedStatement.setInt(2, id);
+            preparedStatement.setString(2, client.getLastName());
+            preparedStatement.setInt(3, id);
             hasUpdate = preparedStatement.executeUpdate();
             connection.close();
-        } catch (Exception e) {
-            System.out.println("CONNECTION ERROR: " + e.getMessage());
-        }
-        return hasUpdate == 1;
-    }
-
-    public Boolean updateLastName(Client client, Integer id) {
-        String sql = "UPDATE Client set last_name = ? where id = ? ";
-        int hasUpdate = 0;
-        try {
-            Connection connection = DBConection.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, client.getLastName());
-            preparedStatement.setInt(2, id);
-            hasUpdate = preparedStatement.executeUpdate();
-            connection.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println("CONNECTION ERROR: " + e.getMessage());
         }
         return hasUpdate == 1;

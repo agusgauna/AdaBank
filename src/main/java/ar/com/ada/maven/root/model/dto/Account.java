@@ -12,6 +12,14 @@ public class Account {
 
     public Account() { }
 
+//    public Account(String number, Integer controlNumber, Client client, AccountType account_type, Branch branch) {
+//        this.number = number;
+//        this.controlNumber = controlNumber;
+//        this.client = client;
+//        this.account_type = account_type;
+//        this.branch = branch;
+//    }
+
     public Account(Integer id,
                    String currency,
                    String number, // AR01 3456 6543 76 1234567890
@@ -44,6 +52,9 @@ public class Account {
         this.client = client;
         this.account_type = account_type;
         this.branch = branch;
+    }
+
+    public Account(Client client, AccountType accountType, Branch branch, Number number) {
     }
 
     public Integer getId() {

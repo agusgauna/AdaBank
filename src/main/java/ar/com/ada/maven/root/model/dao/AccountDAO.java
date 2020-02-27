@@ -45,6 +45,30 @@ public class AccountDAO implements DAO<Account> {
         return accounts;
     }
 
+    public ArrayList<Account> findAllAccountByClientId (Integer client_id) {
+        String sql = "SELECT * FROM Account WHERE client_id = ?";
+        ArrayList<Account> accounts = new ArrayList<>();
+        Account account = null;
+        try {
+            Connection connection = DBConection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, client_id);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                Client cliente = clientDAO.findById(rs.getInt("client_id"));
+                AccountType account_type = account_typeDAO.findById(rs.getInt("account_type"));
+                Branch branch = branchDAO.findById(rs.getInt("branch_id"));
+                account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getString("accountNumber"), rs.getDouble("balance"), rs.getInt("controlNumber"), cliente, account_type, branch);
+                if (willCloseConnection) ;
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("CONNECTION ERROR: " + e.getMessage());
+
+        }
+        return accounts;
+    }
+
     @Override
     public Account findById(Integer id) {
         String sql = "SELECT * FROM Account WHERE id = ?";
@@ -216,5 +240,4 @@ public class AccountDAO implements DAO<Account> {
 
         return account;
     }
-
 }

@@ -32,9 +32,9 @@ public class AccountDAO implements DAO<Account> {
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(sql);
             while (rs.next()) {
-                Client client = clientDAO.findById(rs.getInt("client_id"));
-                AccountType account_type = account_typeDAO.findById(rs.getInt("account_type_id"));
-                Branch branch = branchDAO.findById(rs.getInt("branch_id"));
+                Client client = clientDAO.findById(rs.getInt("Client_id"));
+                AccountType account_type = account_typeDAO.findById(rs.getInt("Account_type_id"));
+                Branch branch = branchDAO.findById(rs.getInt("Branch_id"));
                 Account account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getString("accountNumber"), rs.getDouble("balance"), rs.getInt("controlNumber"), client, account_type, branch);
                 accounts.add(account);
             }
@@ -46,7 +46,7 @@ public class AccountDAO implements DAO<Account> {
     }
 
     public ArrayList<Account> findAllAccountByClientId (Integer client_id) {
-        String sql = "SELECT * FROM Account WHERE client_id = ?";
+        String sql = "SELECT * FROM Account WHERE Client_id = ?";
         ArrayList<Account> accounts = new ArrayList<>();
         Account account = null;
         try {
@@ -55,9 +55,9 @@ public class AccountDAO implements DAO<Account> {
             preparedStatement.setInt(1, client_id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                Client cliente = clientDAO.findById(rs.getInt("client_id"));
-                AccountType account_type = account_typeDAO.findById(rs.getInt("account_type"));
-                Branch branch = branchDAO.findById(rs.getInt("branch_id"));
+                Client cliente = clientDAO.findById(rs.getInt("Client_id"));
+                AccountType account_type = account_typeDAO.findById(rs.getInt("Account_type"));
+                Branch branch = branchDAO.findById(rs.getInt("Branch_id"));
                 account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getString("accountNumber"), rs.getDouble("balance"), rs.getInt("controlNumber"), cliente, account_type, branch);
                 if (willCloseConnection) ;
                 connection.close();
@@ -79,9 +79,9 @@ public class AccountDAO implements DAO<Account> {
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                Client cliente = clientDAO.findById(rs.getInt("client_id"));
-                AccountType account_type = account_typeDAO.findById(rs.getInt("account_type"));
-                Branch branch = branchDAO.findById(rs.getInt("branch_id"));
+                Client cliente = clientDAO.findById(rs.getInt("Client_id"));
+                AccountType account_type = account_typeDAO.findById(rs.getInt("Account_type"));
+                Branch branch = branchDAO.findById(rs.getInt("Branch_id"));
                 account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getString("accountNumber"), rs.getDouble("balance"), rs.getInt("controlNumber"), cliente, account_type, branch);
                 if (willCloseConnection) ;
                 connection.close();
@@ -157,9 +157,9 @@ public class AccountDAO implements DAO<Account> {
             ResultSet rs = preparedStatement.executeQuery();
 
             while (rs.next()) {
-                Client cliente = clientDAO.findById(rs.getInt("client_id"));
-                AccountType account_type = account_typeDAO.findById(rs.getInt("account_type"));
-                Branch branch = branchDAO.findById(rs.getInt("branch_id"));
+                Client cliente = clientDAO.findById(rs.getInt("Client_id"));
+                AccountType account_type = account_typeDAO.findById(rs.getInt("Account_type"));
+                Branch branch = branchDAO.findById(rs.getInt("Branch_id"));
                 Account account = new Account(rs.getInt("id"), rs.getString("currency"), rs.getString("number"),
                         rs.getDouble("balance"), rs.getInt("controlNumber"), cliente, account_type, branch);
                 cuentas.add(account);
@@ -179,9 +179,9 @@ public class AccountDAO implements DAO<Account> {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
-                Client cliente = clientDAO.findById(rs.getInt("client_id"));
-                AccountType account_type = account_typeDAO.findById(rs.getInt("account_type"));
-                Branch branch = branchDAO.findById(rs.getInt("branch_id"));
+                Client cliente = clientDAO.findById(rs.getInt("Client_id"));
+                AccountType account_type = account_typeDAO.findById(rs.getInt("Account_type"));
+                Branch branch = branchDAO.findById(rs.getInt("Branch_id"));
                 account = new Account(
                         rs.getInt("id"),
                         rs.getString("currency"),
